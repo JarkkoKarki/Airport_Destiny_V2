@@ -1,80 +1,233 @@
-html {
-    padding: 0;
-    margin: 0;
-    background-color: #544132;
+/* variables */
+
+:root {
+    --black: rgb(23, 23, 23);
+    --white: rgb(248, 246, 246);
+    --grey: rgb(128, 128, 128);
+    --dark-grey: rgb(57, 57, 57);
 }
 
-body {
-    margin: 0;
-    padding: 0;
-}
 
-#nav1 {
-    background-color: #62594c;
+/* utilities */
+.button {
     display: block;
-    margin: 0;
-    padding: 0;
-    height: 5rem;
-}
-
-#nav-heading {
-    float: left;
-    padding-left: 3rem;
-    padding-top: 0.5rem;
-}
-
-#nav-link {
-    height: 5rem;
-    padding-left: 60%;
-    display: flex;
-    list-style-type: none;
-    justify-content: space-evenly;
-    margin: 0;
-}
-
-.link {
-    border-radius: 1.5rem;
-    display: flex;
-    background-color: #3d6959;
-    width: calc(100% / 3);
-    justify-content: center;
-    padding-top: 1.6rem;
-}
-
-.link:hover {
-    background-color: #5c8585;
-}
-
-#page {
-    display: flex;
-    height: 70rem;
-    margin: auto;
-    align-content: center;
-    justify-content: center;
-    background-color: #405757;
-    width: 80%;
-}
-
-#nav-heading1 {
-    justify-content: center;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
     text-align: center;
-    margin: auto;
-    font-size: 2rem;
+    transition: all 300ms;
 }
 
-#nav11 {
-    width: 20%;
-    justify-content: center;
-    background-color: #62594c;
-    display: block;
-    margin: auto;
+.button-white {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+}
+
+.hide {
+    display: none;
+}
+
+.float {
+    float: left;
+}
+
+/* app specific */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Georgia, Tahoma, sans-serif;
+    background-color: var(--white);
+    scroll-behavior: smooth;
+}
+
+.container {
+    width: 100%;
+    position: relative;
+}
+
+
+.page-header, .page-footer {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 1rem;
+}
+
+.page-footer {
+    text-align: center;
+}
+
+.page-title {
+    margin: 0;
+    text-align: center;
+}
+
+ion-icon {
+    vertical-align: middle;
+}
+
+ul {
+    list-style-type: none;
     padding: 0;
 }
 
-#type {
-    height: 2rem;
+main {
+    padding: 1rem 2rem;
 }
 
-#submit {
-    height: 2rem;
+#map {
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
+}
+
+.boxes {
+    width: 100%;
+}
+
+.box {
+    padding: 1rem;
+    font-size: x-small;
+}
+
+#map. .box {
+    border-radius: 6px;
+    box-shadow: rgb(0,0,0,0.3) 3px 3px 10px;
+    margin-bottom: 1rem;
+}
+
+.box h2 {
+    margin: 0;
+}
+
+.box h2, .box figure {
+    margin: 0;
+    padding: 0;
+}
+
+.box table {
+    width: 100%;
+    text-align: center;
+    border: var(--grey) solid 1px;
+    border-radius: 4px;
+}
+
+.box li {
+    width: calc(50% - 0.6rem);
+    text-align: center;
+    border: var(--grey) solid 1px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 0.3rem;
+    margin: 0.3rem;
+}
+
+.box img {
+    height: 3rem;
+}
+
+.goal {
+    background-color: rgb(12, 12, 12, 0.3);
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 9rem 7rem;
+    text-align: center;
+    position: absolute;
+    bottom: 30%;
+    filter: drop-shadow(0 0 30px #333);
+    transform: rotate(340deg);
+    line-height: 1rem;
+    z-index: 999;
+}
+
+.goal h2, .goal p {
+    margin: 0.5rem;
+}
+
+#player-modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+}
+
+#player-form {
+    display: flex;
+    width: 50%;
+    margin: 4rem auto;
+    flex-direction: column;
+}
+
+#player-form input {
+    padding: 1rem;
+}
+
+.done {
+    background-color: var(--grey);
+}
+
+.airport-col {
+    border-spacing: 0;
+}
+
+.airport-col td {
+    padding: 0.3rem;
+}
+
+.airport-col td:first-child, .airport-col td:nth-child(2) {
+    border-right: var(--grey) 1px solid;
+}
+
+.lead-img {
+    width: 100%;
+    margin: 0 0 1rem 0;
+}
+
+@media screen and (min-width: 769px){
+    .box {
+        font-size: initial;
+    }
+
+    #map {
+        width: 40%;
+        height: initial;
+    }
+
+    .boxes {
+        width: 60%;
+        padding-left: 1rem;
+        box-sizing: border-box;
+    }
+}
+
+/* Leaflet icons */
+.blue-icon {
+    background-color: #2474ff;
+    border-radius: 50%;
+    border: 5px solid rgb(255, 255, 255, 0.5);
+}
+
+.green-icon {
+    background-color: #27ba35;
+    border-radius: 50%;
+    border: 5px solid rgb(255, 255, 255, 0.5);
 }
