@@ -46,7 +46,7 @@ function updateStatus(status) {
 // function to show weather at selected airport
 function showWeather(airport) {
     document.querySelector('#airport-name').innerHTML = `${airport.name}`;
-    document.querySelector('#airport-temp').innerHTML = `${airport.name}`;
+    document.querySelector('#airport-temp').innerHTML = `${airport.municipality}`;
     document.querySelector('#weather-icon').src = airport.weather.icon;
     document.querySelector('#airport-conditions').innerHTML = airport.weather.description;
     document.querySelector('#airport-wind').innerHTML = `${airport.weather.wind.speed}m/s`;
