@@ -107,9 +107,9 @@ main {
     font-size: x-small;
 }
 
-#map. .box {
+#map .box {
     border-radius: 6px;
-    box-shadow: rgb(0,0,0,0.3) 3px 3px 10px;
+    box-shadow: rgb(0, 0, 0, 0.3) 3px 3px 10px;
     margin-bottom: 1rem;
 }
 
@@ -162,12 +162,35 @@ main {
 }
 
 #player-modal {
+    align-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.96);
     position: absolute;
     top: 0;
     z-index: 9999;
+}
+
+#intro-heading {
+    font-size: 4rem;
+    color: #232323;
+    filter: drop-shadow(0 0 15px #da9568);
+    font-family: Centaur, sans-serif;
+}
+
+#back {
+    width: 50%;
+    height: 50%;
+    align-content: center;
+    border-radius: 4rem;
+    margin: auto;
+    padding: 10%;
+    background-image: url("/pic/tausta.jpg");
+    background-position: center;
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    text-align: center;
+
 }
 
 #player-form {
@@ -177,8 +200,32 @@ main {
     flex-direction: column;
 }
 
+#submit-button {
+    background-color: black;
+    width: 50%;
+    margin: auto;
+}
+
 #player-form input {
     padding: 1rem;
+    background-color: rgba(162, 110, 76, 0.4);
+    border-radius: 1rem;
+}
+
+#player-form input:hover {
+    background-color: rgba(1, 1, 1, 0.6);
+}
+
+#player-form input:focus {
+    outline: none;
+    resize: inline;
+}
+
+.start-buttons {
+    background-color: rgba(31, 31, 31, 0.7);
+    border-radius: 2rem;
+    padding: 2rem;
+    color: white;
 }
 
 .done {
@@ -202,7 +249,7 @@ main {
     margin: 0 0 1rem 0;
 }
 
-@media screen and (min-width: 769px){
+@media screen and (min-width: 769px) {
     .box {
         font-size: initial;
     }
