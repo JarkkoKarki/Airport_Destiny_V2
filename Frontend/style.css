@@ -165,7 +165,11 @@ main {
     align-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.96);
+    background-image: url("/pic/tausta1.webp");
+    filter: brightness(80%) blur(0.007rem);
+    background-position: center;
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
     position: absolute;
     top: 0;
     z-index: 9999;
@@ -175,7 +179,8 @@ main {
     font-size: 4rem;
     color: #232323;
     filter: drop-shadow(0 0 15px #da9568);
-    font-family: Centaur, sans-serif;
+    font-family: "Papyrus", sans-serif;
+    font-size: 4rem;
 }
 
 #back {
@@ -186,6 +191,7 @@ main {
     margin: auto;
     padding: 10%;
     background-image: url("/pic/tausta.jpg");
+    filter: brightness(90%);
     background-position: center;
     background-repeat: no-repeat, repeat;
     background-size: cover;
@@ -210,10 +216,13 @@ main {
     padding: 1rem;
     background-color: rgba(162, 110, 76, 0.4);
     border-radius: 1rem;
+    transition: all 500ms;
 }
 
 #player-form input:hover {
     background-color: rgba(1, 1, 1, 0.6);
+    font-size: 1.2rem;
+    border-radius: 2rem;
 }
 
 #player-form input:focus {
