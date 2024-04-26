@@ -35,3 +35,28 @@ function turn(turnNumber){
 
 // export player object
 module.exports = player;
+
+// Example usage:
+//displayMoney(); // Display initial money amount
+
+// Assuming the player wins a game and earns 5000 money
+//updateMoney(5000);
+// Display updated money amount
+//displayMoney();
+
+
+/// yksittäinen vuoro pelin kulussa esimerkki
+
+///heitä noppa funktio ajatuksia:
+///kerran vuorossa voi heittää noppaa saat rahaa 1000-6000 1-6 Math.random avulla
+///kerran vuorossa tarkistus:  turn ennen nopan heittoa = 1 :  nopan heiton jälkeen jälkeen turn += 1 eli 2
+/// heitä noppaa toimii vain jos turn on 1 eikä päivitetty 2? Et pääse lentämään ennen nopanheittoa ?!
+///kompensoi päästöjä kanssa 1 per turn / vuoro
+
+
+
+
+
+
+
+
