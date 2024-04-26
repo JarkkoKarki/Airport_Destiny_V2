@@ -3,7 +3,7 @@ import random
 import json
 from geopy.distance import geodesic
 import time
-
+from flask import Flask, request
 
 def yhteys():
     connection = mysql.connector.connect(
@@ -15,11 +15,18 @@ def yhteys():
         autocommit=True,
     )
     time.sleep(1)
+    tietokanta_alustus(connection)
     return connection
 
-def satunnaiset_maat(sql_yhteys):
 
-    cursor = sql_yhteys.cursor()
+def tietokanta_alustus(connection):
+    cursor = connection.cursor()
+    cursor.execute("drop table if exists goal_reached;")
+    cursor.execute("drop table if exists game;")
+    cursor.execute("drop table if exists goal;")
+def satunnaiset_maat(connection):
+
+    cursor = connection.cursor()
     sql = ("""select ident, latitude_deg, longitude_deg, airport.name, country.name from airport, country
     where airport.iso_country=country.iso_country 
     and country.continent = 'EU' 
@@ -35,7 +42,7 @@ def satunnaiset_maat(sql_yhteys):
 
     # Create a list to store airport data as dictionaries
     pelilauta = []
-    for index, airport_data in enumerate(random_airports, start=1):
+    for airport_data in random_airports:
         airport_dict = {
             "ident": airport_data[0],
             "latitude_deg": airport_data[1],
@@ -51,9 +58,28 @@ def satunnaiset_maat(sql_yhteys):
 connection = yhteys()
 
 
-random_airports_data = satunnaiset_maat(connection)
+app = Flask(__name__)
+@app.route('/newgame')
+def aloitus():
+    args = request.args
+    player = args.get["player"]
+    dest = args.get["loc"]
+    random_airports_data = satunnaiset_maat(connection)
+    json_data = json.dumps(random_airports_data, indent=4)
+    return json_data
+
+
+if __name__ == '__main__':
+    app.run(use_reloader=True, host='127.0.0.1', port=3000)
+
+
+
+
+# Initialize database tables
+
+# Get 10 random airports and store their data as dictionaries
+# random_airports_data = satunnaiset_maat(connection)
 
 # Convert airport data to JSON format
-json_data = json.dumps(random_airports_data, indent=4)
-print(json_data)
-
+#json_data = json.dumps(random_airports_data, indent=4)
+#print(json_data)

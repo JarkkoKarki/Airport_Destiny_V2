@@ -88,6 +88,7 @@ function checkGameOver(budget) {
 
 // function to set up game
 // this is the main function that creates the game and calls the other functions
+/*
 async function gameSetup(url) {
     try {
         document.querySelector('.goal').classList.add('hide');
@@ -129,7 +130,7 @@ async function gameSetup(url) {
         console.log(error);
     }
 }
-
+*/
 
 // event listener to hide goal splash
 document.querySelector('.goal').addEventListener('click', function (evt) {
