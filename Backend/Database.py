@@ -15,15 +15,8 @@ def yhteys():
         autocommit=True,
     )
     time.sleep(1)
-    tietokanta_alustus(connection)
     return connection
 
-
-def tietokanta_alustus(sql_yhteys):
-    cursor = sql_yhteys.cursor()
-    cursor.execute("drop table if exists goal_reached;")
-    cursor.execute("drop table if exists game;")
-    cursor.execute("drop table if exists goal;")
 def satunnaiset_maat(sql_yhteys):
 
     cursor = sql_yhteys.cursor()
@@ -57,10 +50,7 @@ def satunnaiset_maat(sql_yhteys):
 
 connection = yhteys()
 
-# Initialize database tables
-tietokanta_alustus(connection)
 
-# Get 10 random airports and store their data as dictionaries
 random_airports_data = satunnaiset_maat(connection)
 
 # Convert airport data to JSON format
