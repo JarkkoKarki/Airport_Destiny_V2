@@ -5,30 +5,17 @@ L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
 }).addTo(map);
-map.setView([60, 24], 5);
+map.setView([60, 24], 7);
 
-const blueIcon = L.divIcon({className: 'blue-icon'})
-const greenIcon = L.divIcon({className: 'green-icon'})
 
-function airportdata(data) {
-    const airportNameElement = document.getElementById('airport-name');
-    const airportCountryElement = document.getElementById('airport-country')
-    const airportIdentElement = document.getElementById('airport-ident')
-    const airportCordElement = document.getElementById('airport-cord')
-    airportNameElement.textContent = data[0]['name'];
-    airportCountryElement.textContent = data[0]['country']
-    airportIdentElement.textContent = data[0]['ident']
-    airportCordElement.innerHTML = `${data[0]['longitude_deg'].toFixed(2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${(data[0]['latitude_deg']).toFixed(2)}`
+document.querySelector('#player-form').addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    const playerName = document.querySelector('#player-input').value;
+    document.querySelector('#player-name').textContent = playerName;
+});
 
-    const airportNextNameElement = document.getElementById('nairport-name');
-    const airportNextCountryElement = document.getElementById('nairport-country')
-    const airportNextIdentElement = document.getElementById('nairport-ident')
-    const airportNextCordElement = document.getElementById('nairport-cord')
-    airportNextNameElement.textContent = data[1]['name'];
-    airportNextCountryElement.textContent = data[1]['country']
-    airportNextIdentElement.textContent = data[1]['ident']
-    airportNextCordElement.innerHTML = `${data[1]['longitude_deg'].toFixed(2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${(data[1]['latitude_deg']).toFixed(2)}`
-}
+const stats = [name, 0, 0, 0, 1]
+
 
 document.querySelector('#player-form').addEventListener('submit', function (evt) {
     evt.preventDefault();
