@@ -26,6 +26,16 @@ document.querySelector('#player-form').addEventListener('submit', function (evt)
     document.querySelector('#player-modal').classList.add('hide');
     gameSetup(`${apiUrl}newgame?player=${playerName}`);
 });
+
+document.querySelector('#flight').addEventListener('click', function (evt) {
+    evt.preventDefault();
+    document.querySelector('#player-modal1').classList.remove('hide');
+})
+
+
+
+
+
 async function gameSetup(url) {
         airportMarkers.clearLayers();
         const gameData = await getData(url);

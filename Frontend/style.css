@@ -175,6 +175,64 @@ main {
     z-index: 9999;
 }
 
+#player-modal1 {
+    align-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(1, 1, 1, 0.92);
+    filter: brightness(80%) blur(0.007rem);
+    background-position: center;
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+}
+
+#intro-heading1 {
+    font-size: 2rem;
+    color: #232323;
+    filter: drop-shadow(0 0 15px #da9568);
+    font-family: "Papyrus", sans-serif;
+    text-align: center;
+    transition: top;
+    margin-bottom: 5rem;
+}
+
+#back1 {
+    width: 80%;
+    height: auto;
+    border-radius: 4rem;
+    margin: auto;
+    padding: 2rem;
+    background-color: lightslategray;
+    filter: brightness(90%);
+    background-position: center;
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    text-align: center;
+}
+
+.lentonappula {
+    padding: 1rem;
+    margin: 2rem;
+}
+
+.airport-col1 {
+    border-spacing: 0;
+    margin-bottom: 2rem;
+    align-content: center;
+}
+
+.airport-col1 td {
+    padding: 1.5rem;
+}
+
+.airport-col1 td:first-child, .airport-col1 td:nth-child(2), .airport-col1 td:nth-child(3), .airport-col1 td:nth-child(4), .airport-col1 td:nth-child(5), .airport-col1 td:nth-child(6) {
+    border: rgb(1, 1, 1) 1px solid;
+}
+
+
 #intro-heading {
     font-size: 4rem;
     color: #232323;
@@ -249,7 +307,7 @@ main {
     padding: 0.3rem;
 }
 
-.airport-col td:first-child, .airport-col td:nth-child(2), .airport-col td:nth-child(3){
+.airport-col td:first-child, .airport-col td:nth-child(2), .airport-col td:nth-child(3) {
     border-right: var(--grey) 1px solid;
 }
 

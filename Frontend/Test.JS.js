@@ -49,12 +49,15 @@ function airportdata(data) {
     airportNextDistElement.textContent = dist.toFixed(2) + ' km'
 }
 
-document.querySelector('#player-form').addEventListener('submit', function (evt) {
+document.querySelector('#flight').addEventListener('click', function (evt) {
     evt.preventDefault();
-    const playerName = document.querySelector('#player-input').value;
-    document.querySelector('#player-name').textContent = playerName;
-});
+    document.querySelector('#player-modal1').classList.remove('hide');
+})
 
+document.querySelector('#close').addEventListener('submit', function (evt) {
+    evt.preventDefault()
+    document.querySelector('#player-modal1').classList.add('hide');
+})
 
 document.querySelector('#player-form').addEventListener('submit', function (evt) {
     evt.preventDefault();
