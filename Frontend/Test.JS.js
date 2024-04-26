@@ -11,13 +11,12 @@ const blueIcon = L.divIcon({className: 'blue-icon'})
 const greenIcon = L.divIcon({className: 'green-icon'})
 
 
+
 document.querySelector('#player-form').addEventListener('submit', function (evt) {
     evt.preventDefault();
     const playerName = document.querySelector('#player-input').value;
     document.querySelector('#player-name').textContent = playerName;
 });
-
-const stats = [name, 0, 0, 0, 1]
 
 
 document.querySelector('#player-form').addEventListener('submit', function (evt) {
