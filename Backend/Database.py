@@ -57,8 +57,6 @@ CORS(app)
 
 @app.route('/newgame')
 def aloitus():
-    args = request.args
-    player = args.get["player"]
     random_airports_data = satunnaiset_maat(connection)
     json_data = json.dumps(random_airports_data, indent=4)
     return json_data
