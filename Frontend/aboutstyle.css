@@ -57,7 +57,14 @@ html, body {
     background-color: var(--white);
     scroll-behavior: smooth;
     align-items: center;
+
+
 }
+h1, h2, p, ul, form {
+    text-align: center;
+    list-style-type: none;
+}
+
 
 .container {
     width: 100%;
