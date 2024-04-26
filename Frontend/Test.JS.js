@@ -20,7 +20,6 @@ function airportdata(data) {
     airportIdentElement.textContent = data[0]['ident']
     airportCordElement.innerHTML = `${data[0]['longitude_deg'].toFixed(2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${(data[0]['latitude_deg']).toFixed(2)}`
 
-
     const airportNextNameElement = document.getElementById('nairport-name');
     const airportNextCountryElement = document.getElementById('nairport-country')
     const airportNextIdentElement = document.getElementById('nairport-ident')
