@@ -88,7 +88,7 @@ function checkGameOver(budget) {
     return true;
 }
 
- */
+
 
 // function to set up game
 // this is the main function that creates the game and calls the other functions
@@ -134,6 +134,6 @@ async function gameSetup(url) {
         console.log(error);
     }
 }
-*/
+
 
 // event listener to hide goal splash
