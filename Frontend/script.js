@@ -24,23 +24,25 @@ document.querySelector('#player-form').addEventListener('submit', function (evt)
     evt.preventDefault();
     const playerName = document.querySelector('#player-input').value;
     document.querySelector('#player-modal').classList.add('hide');
-    gameSetup(`${apiUrl}newgame?player=${playerName}&loc=${startLoc}`);
+    gameSetup(`${apiUrl}newgame?player=${playerName}`);
 });
-
+async function gameSetup(url) {
+        airportMarkers.clearLayers();
+        const gameData = await getData(url);
+        console.log(gameData);
+        updateStatus(gameData.status)
+}
 
 // function to fetch data from API
 async function getData(url) {
     const response = await fetch(url);
-    if (!response.ok) throw new Error('invalid server input!')
     const data = await response.json();
-    return data;
+    return console.log(data.value);
 }
 
 // function to update game status
 function updateStatus(status) {
     document.querySelector('#player-name').innerHTML = `Player: ${status.name}`;
-    document.querySelector('#consumed').innerHTML = status.co2.consumed;
-    document.querySelector('#budget').innerHTML = status.co2.budget;
 }
 
 // function to show weather at selected airport
@@ -54,6 +56,7 @@ function showWeather(airport) {
 
 
 // function to update goal data and goal table in UI
+/*
 function updateGoals(goals) {
     document.querySelector('#goals').innerHTML = ''
     for (let goal of goals) {
@@ -85,6 +88,8 @@ function checkGameOver(budget) {
     }
     return true;
 }
+
+ */
 
 // function to set up game
 // this is the main function that creates the game and calls the other functions
@@ -133,6 +138,3 @@ async function gameSetup(url) {
 */
 
 // event listener to hide goal splash
-document.querySelector('.goal').addEventListener('click', function (evt) {
-    evt.currentTarget.classList.add('hide');
-});

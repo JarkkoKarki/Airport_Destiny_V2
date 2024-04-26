@@ -4,6 +4,7 @@ import json
 from geopy.distance import geodesic
 import time
 from flask import Flask, request
+from flask_cors import CORS
 
 def yhteys():
     connection = mysql.connector.connect(
@@ -14,16 +15,8 @@ def yhteys():
         database="flight_game",
         autocommit=True,
     )
-    time.sleep(1)
-    tietokanta_alustus(connection)
     return connection
 
-
-def tietokanta_alustus(connection):
-    cursor = connection.cursor()
-    cursor.execute("drop table if exists goal_reached;")
-    cursor.execute("drop table if exists game;")
-    cursor.execute("drop table if exists goal;")
 def satunnaiset_maat(connection):
 
     cursor = connection.cursor()
@@ -59,11 +52,13 @@ connection = yhteys()
 
 
 app = Flask(__name__)
+
+CORS(app)
+
 @app.route('/newgame')
 def aloitus():
     args = request.args
     player = args.get["player"]
-    dest = args.get["loc"]
     random_airports_data = satunnaiset_maat(connection)
     json_data = json.dumps(random_airports_data, indent=4)
     return json_data
