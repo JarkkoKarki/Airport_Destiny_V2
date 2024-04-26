@@ -10,14 +10,50 @@ map.setView([60, 24], 5);
 const blueIcon = L.divIcon({className: 'blue-icon'})
 const greenIcon = L.divIcon({className: 'green-icon'})
 
+function airportdata(data) {
+    const airportNameElement = document.getElementById('airport-name');
+    const airportCountryElement = document.getElementById('airport-country')
+    const airportIdentElement = document.getElementById('airport-ident')
+    const airportCordElement = document.getElementById('airport-cord')
+    airportNameElement.textContent = data[0]['name'];
+    airportCountryElement.textContent = data[0]['country']
+    airportIdentElement.textContent = data[0]['ident']
+    airportCordElement.innerHTML = `${data[0]['longitude_deg'].toFixed(2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[0]['latitude_deg'].toFixed(2)}`
+
+
+    const airportNextNameElement = document.getElementById('nairport-name');
+    const airportNextCountryElement = document.getElementById('nairport-country')
+    const airportNextIdentElement = document.getElementById('nairport-ident')
+    const airportNextCordElement = document.getElementById('nairport-cord')
+    airportNextNameElement.textContent = data[1]['name'];
+    airportNextCountryElement.textContent = data[1]['country']
+    airportNextIdentElement.textContent = data[1]['ident']
+    airportNextCordElement.innerHTML = `${data[1]['longitude_deg'].toFixed(2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[1]['latitude_deg'].toFixed(2)}`
+
+    let lat2 = data[1]['latitude_deg']
+    let lat1 = data[0]['latitude_deg']
+    let lon1 = data[0]['longitude_deg']
+    let lon2 = data[1]['longitude_deg']
+    let R = 6371; // km
+    let dLat = (lat2 - lat1)* (Math.PI / 180);
+    let dLon = (lon2 - lon1)* (Math.PI / 180);
+    lat1 = (lat1)* (Math.PI / 180);
+    lat2 = (lat2)* (Math.PI / 180);
+
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var dist = R * c;
+
+    const airportNextDistElement = document.getElementById('nairport-distance')
+    airportNextDistElement.textContent = dist.toFixed(2) + ' km'
+}
 
 document.querySelector('#player-form').addEventListener('submit', function (evt) {
     evt.preventDefault();
     const playerName = document.querySelector('#player-input').value;
     document.querySelector('#player-name').textContent = playerName;
 });
-
-const stats = [name, 0, 0, 0, 1]
 
 
 document.querySelector('#player-form').addEventListener('submit', function (evt) {

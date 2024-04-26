@@ -249,7 +249,7 @@ main {
     padding: 0.3rem;
 }
 
-.airport-col td:first-child, .airport-col td:nth-child(2) {
+.airport-col td:first-child, .airport-col td:nth-child(2), .airport-col td:nth-child(3){
     border-right: var(--grey) 1px solid;
 }
 
