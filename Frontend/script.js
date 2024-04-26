@@ -30,7 +30,6 @@ async function gameSetup(url) {
         airportMarkers.clearLayers();
         const gameData = await getData(url);
         console.log(gameData);
-        updateStatus(gameData.status)
 }
 
 // function to fetch data from API
