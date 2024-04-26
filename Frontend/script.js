@@ -55,7 +55,7 @@ function showWeather(airport) {
 
 
 // function to update goal data and goal table in UI
-/*
+
 function updateGoals(goals) {
     document.querySelector('#goals').innerHTML = ''
     for (let goal of goals) {
@@ -92,7 +92,7 @@ function checkGameOver(budget) {
 
 // function to set up game
 // this is the main function that creates the game and calls the other functions
-/*
+
 async function gameSetup(url) {
     try {
         document.querySelector('.goal').classList.add('hide');

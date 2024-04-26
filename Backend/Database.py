@@ -1,8 +1,6 @@
 import mysql.connector
 import random
 import json
-from geopy.distance import geodesic
-import time
 from flask import Flask, request
 from flask_cors import CORS
 
