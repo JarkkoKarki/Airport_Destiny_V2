@@ -1,5 +1,13 @@
 /* variables */
 
+body {
+    background-image: url('https://www.airplaneboneyards.com/images/william-larkins/cal-aero-field-california-aerial-view-1946.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    background-color: #f0f0f0; /
+}
 :root {
     --black: rgb(23, 23, 23);
     --white: rgb(248, 246, 246);
