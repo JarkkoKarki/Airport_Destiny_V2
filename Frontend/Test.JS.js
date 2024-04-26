@@ -5,7 +5,7 @@ L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
 }).addTo(map);
-map.setView([60, 24], 5);
+map.setView([60, 24], 2);
 
 const blueIcon = L.divIcon({className: 'blue-icon'})
 const greenIcon = L.divIcon({className: 'green-icon'})
@@ -35,10 +35,10 @@ function airportdata(data) {
     let lon1 = data[0]['longitude_deg']
     let lon2 = data[1]['longitude_deg']
     let R = 6371; // km
-    let dLat = (lat2 - lat1)* (Math.PI / 180);
-    let dLon = (lon2 - lon1)* (Math.PI / 180);
-    lat1 = (lat1)* (Math.PI / 180);
-    lat2 = (lat2)* (Math.PI / 180);
+    let dLat = (lat2 - lat1) * (Math.PI / 180);
+    let dLon = (lon2 - lon1) * (Math.PI / 180);
+    lat1 = (lat1) * (Math.PI / 180);
+    lat2 = (lat2) * (Math.PI / 180);
 
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
@@ -47,6 +47,13 @@ function airportdata(data) {
 
     const airportNextDistElement = document.getElementById('nairport-distance')
     airportNextDistElement.textContent = dist.toFixed(2) + ' km'
+    const pelilautaElement = document.getElementById('pelilauta')
+    let htmlElement = ""
+    for (let i = 0; i < data.length; i++) {
+        htmlElement += `<li>${i + 1}. ${data[i]['name']}</li>`
+    }
+    pelilautaElement.innerHTML = `<ul>${htmlElement}</ul>`
+
 }
 
 document.querySelector('#flight').addEventListener('click', function (evt) {
@@ -54,7 +61,7 @@ document.querySelector('#flight').addEventListener('click', function (evt) {
     document.querySelector('#player-modal1').classList.remove('hide');
 })
 
-document.querySelector('#close').addEventListener('submit', function (evt) {
+document.querySelector('#close').addEventListener('click', function (evt) {
     evt.preventDefault()
     document.querySelector('#player-modal1').classList.add('hide');
 })
@@ -62,6 +69,7 @@ document.querySelector('#close').addEventListener('submit', function (evt) {
 document.querySelector('#player-form').addEventListener('submit', function (evt) {
     evt.preventDefault();
     const playerName = document.querySelector('#player-input').value;
+    document.querySelector('#player-name').textContent = playerName;
     document.querySelector('#player-modal').classList.add('hide');
     initializeMap()
 })

@@ -55,7 +55,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>CO2 Consumed: <span id="consumed">999</span>kg</td>
+                        <td>CO2 Consumed: <span id="consumed">0</span>kg</td>
                         <td>Money: <span id="budget">0</span>e</td>
                     </tr>
                 </table>
@@ -63,8 +63,8 @@
             <section class="box">
                 <header>
                     <h2>Airport name</h2>
-                    <input type="submit" value="Heitä noppaa">
-                    <input type="submit" value="Kompensoi päästöjä">
+                    <input class="valinta" type="submit" value="Heitä noppaa">
+                    <input class="valinta"  type="submit" value="Kompensoi päästöjä">
                     <p id="airport-name"></p>
                 </header>
                 <table class="airport-col">
@@ -83,7 +83,7 @@
             <section class="box">
                 <header>
                     <h2>Next Airport</h2>
-                    <input id="flight" type="submit" value="Lennä">
+                    <input class="valinta"  id="flight" type="submit" value="Lennä">
                     <p id="nairport-name"></p>
                 </header>
                 <table class="airport-col">
@@ -94,18 +94,28 @@
                         <td>Distance</td>
                     </tr>
                     <tr>
-                        <td id="nairport-country">10°C</td>
-                        <td id="nairport-ident">Cloudy</td>
-                        <td id="nairport-cord">40m/s</td>
+                        <td id="nairport-country"></td>
+                        <td id="nairport-ident"></td>
+                        <td id="nairport-cord"></td>
                         <td id="nairport-distance"></td>
                     </tr>
                 </table>
             </section>
         </div>
     </main>
-    <footer class="page-footer">
-        <p>Airport Destiny</p>
-    </footer>
+    <div>
+        <p id="pelilauta">Pelilauta</p>
+        <p id="footer-icon">
+            <ion-icon name="airplane-outline"></ion-icon>
+        </p>
+        <footer class="page-footer">
+            <p>Airport Destiny</p>
+            <p class="white-line">║</p>
+            <p class="white-line2">Lähtö</p>
+            <p class="white-line1">║</p>
+            <p class="white-line3">Maali</p>
+        </footer>
+    </div>
 </div>
 
 <div id="player-modal">
@@ -136,20 +146,26 @@
         <form id="player-form1"></form>
         <table class="airport-col1">
             <tr>
-                <td>Kone1</td>
-                <td>Kone2</td>
-                <td>Kone3</td>
-                <td>Kone4</td>
-                <td>Kone5</td>
-                <td>Kone6</td>
+                <td>1.</td>
+                <td>2.</td>
+                <td>3.</td>
+                <td>4.</td>
+                <td>5.</td>
+                <td>6.</td>
             </tr>
             <tr>
-                <td>1. Sähkölentokone, Hinta 6000, päästöt 0.25kg/km <input class="lentonappula"  type="submit" value="lennä"></td>
-                <td>2. Hybridi helikopteri, Hinta 5000, päästöt 0,30kg/km <input class="lentonappula"  type="submit" value="lennä"></td>
-                <td>3. Sähköliitokone, Hinta 4000, päästöt 0,35kg/km <input class="lentonappula"  type="submit" value="lennä"></td>
-                <td>4. Biodiesel Jet, Hinta 3000, päästöt 0,40kg/km <input class="lentonappula"  type="submit" value="lennä"></td>
-                <td>5. Sähköhelikopteri, Hinta 2000, päästöt 0,45kg/km <input class="lentonappula"  type="submit" value="lennä"></td>
-                <td>6. Aurinkovoimaraketti, Hinta 1000, päästöt 0,50kg/km <input class="lentonappula" type="submit" value="lennä"></td>
+                <td>1. Sähkölentokone, Hinta 6000, päästöt 0.25kg/km <input id="lento1" class="lentonappi" type="submit"
+                                                                            value="Lennä"></td>
+                <td>2. Hybridi helikopteri, Hinta 5000, päästöt 0,30kg/km <input id="lento2" class="lentonappi"
+                                                                                 type="submit" value="Lennä"></td>
+                <td>3. Sähköliitokone, Hinta 4000, päästöt 0,35kg/km <input id="lento3" class="lentonappi" type="submit"
+                                                                            value="Lennä"></td>
+                <td>4. Biodiesel Jet, Hinta 3000, päästöt 0,40kg/km <input id="lento4" class="lentonappi" type="submit"
+                                                                           value="Lennä"></td>
+                <td>5. Sähköhelikopteri, Hinta 2000, päästöt 0,45kg/km <input id="lento5" class="lentonappi"
+                                                                              type="submit" value="Lennä"></td>
+                <td>6. Aurinkovoimaraketti, Hinta 1000, päästöt 0,50kg/km <input id="lento6" class="lentonappi"
+                                                                                 type="submit" value="Lennä"></td>
             </tr>
         </table>
     </div>

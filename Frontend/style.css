@@ -54,7 +54,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Verdana, Georgia, Tahoma, sans-serif;
-    background-color: var(--white);
+    background-image: linear-gradient(45deg, rgba(148, 138, 138, 0.24), #9f9790);
     scroll-behavior: smooth;
 }
 
@@ -72,6 +72,7 @@ html, body {
 
 .page-footer {
     text-align: center;
+    margin-top: 4rem;
 }
 
 .page-title {
@@ -205,33 +206,135 @@ main {
     border-radius: 4rem;
     margin: auto;
     padding: 2rem;
-    background-color: lightslategray;
-    filter: brightness(90%);
+    background-color: rgba(154, 154, 154, 0.82);
     background-position: center;
     background-repeat: no-repeat, repeat;
     background-size: cover;
     text-align: center;
 }
 
-.lentonappula {
+
+#pelilauta {
+    list-style-type: none;
+    justify-content: space-evenly;
+    border: solid 0.2rem rgba(1, 1, 1, 0.4);
+    border-radius: 2rem;
+    align-content: center;
+    margin: 0;
+    background-color: rgba(143, 143, 143, 0.55);
+}
+
+#pelilauta li {
+    display: inline-block; /* Display list items horizontally */
+    margin-right: 10px; /* Optional: Adjust spacing between items */
+    padding: 2rem;
+}
+
+#pelilauta li:first-child {
+    color: #2474ff;
+}
+
+#footer-icon {
+    font-size: 3rem;
+    margin: 0 0 3rem 3rem;
+    float: left;
+}
+
+.white-line {
+    float: left;
+    margin-bottom: 4rem;
+    font-size: 4.4rem;
+    transform: translateX(2rem) translateY(-9.1rem);
+}
+
+.white-line1 {
+    float: right;
+    margin-bottom: 4rem;
+    font-size: 4.4rem;
+    transform: translateX(-2rem) translateY(-9.1rem);
+}
+
+.white-line2 {
+    float: left;
+    margin-bottom: 4rem;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    transform: translateX(2rem) translateY(-3.1rem);
+}
+
+.white-line3 {
+    float: right;
+    margin-bottom: 4rem;
+    font-size: 1rem;
+    color: rgb(255, 255, 255, 0.7);
+    transform: translateX(-2rem) translateY(-3.1rem);
+}
+
+.valinta {
+    padding: 0.5rem;
+    margin: 0.2rem;
+    display: inline;
+    border: rgba(1, 1, 1, 0.4) 0.3rem ridge;
+    text-decoration: none;
+    background-color: rgba(143, 143, 143, 0.55);
+    filter: drop-shadow(0.2rem 0.2rem 3px rgba(255, 255, 255, 0.58));
+    border-radius: 2rem;
+    text-align: center;
+    transition: all 600ms;
+}
+
+.valinta:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0rem 0rem 0px rgba(255, 255, 255, 0.58));
+    background-color: rgba(84, 84, 84, 0.55);
+}
+
+.lentonappi {
     padding: 1rem;
     margin: 2rem;
+    display: block;
+    border: rgba(1, 1, 1, 0.4) 0.3rem solid;
+    text-decoration: none;
+    background-color: #a5b3bb;
+    border-radius: 2rem;
+    text-align: center;
+    transition: all 300ms;
+}
+
+.lentonappi:hover {
+    transform: scale(1.1);
 }
 
 .airport-col1 {
-    border-spacing: 0;
+    border-spacing: 1rem;
     margin-bottom: 2rem;
     align-content: center;
+    color: #ffffff;
 }
 
 .airport-col1 td {
     padding: 1.5rem;
+    border-radius: 1.5rem;
+    background-color: #525b65;
 }
 
 .airport-col1 td:first-child, .airport-col1 td:nth-child(2), .airport-col1 td:nth-child(3), .airport-col1 td:nth-child(4), .airport-col1 td:nth-child(5), .airport-col1 td:nth-child(6) {
-    border: rgb(1, 1, 1) 1px solid;
+    border: rgba(1, 1, 1, 0.4) 0.3rem solid;
 }
 
+#close {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    background-color: #525b65;
+    border-radius: 5rem;
+    text-align: center;
+    transition: all 300ms;
+}
+
+#close:hover {
+    transform: scale(1.1);
+}
 
 #intro-heading {
     font-size: 4rem;
@@ -272,7 +375,7 @@ main {
 
 #player-form input {
     padding: 1rem;
-    background-color: rgba(162, 110, 76, 0.4);
+    background-color: rgba(109, 102, 98, 0.5);
     border-radius: 1rem;
     transition: all 500ms;
 }
