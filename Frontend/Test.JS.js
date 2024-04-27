@@ -1,11 +1,22 @@
 'use strict'
 
+// Kartta
 const map = L.map('map', {tap: false});
 L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
 }).addTo(map);
 map.setView([60, 24], 2);
+
+/// Player Stats
+const player = {
+    name:"playerName",
+    money:1000,
+    co2_emissions:0,
+    location:0,
+    turn:0
+}
+
 
 const blueIcon = L.divIcon({className: 'blue-icon'})
 const greenIcon = L.divIcon({className: 'green-icon'})
@@ -66,10 +77,13 @@ document.querySelector('#close').addEventListener('click', function (evt) {
     document.querySelector('#player-modal1').classList.add('hide');
 })
 
+
+///Player Name
 document.querySelector('#player-form').addEventListener('submit', function (evt) {
     evt.preventDefault();
     const playerName = document.querySelector('#player-input').value;
     document.querySelector('#player-name').textContent = playerName;
+    player.name = playerName;
     document.querySelector('#player-modal').classList.add('hide');
     initializeMap()
 })
@@ -124,3 +138,77 @@ async function initializeMap() {
     airportdata(data)
     return data
 }
+
+function rollDice () {
+    let roll = Math.floor(Math.random() * 6) + 1;
+    let rolledMoney = roll * 1000;
+    player.money += rolledMoney;
+    return rolledMoney;
+}
+
+function kps(pelaajanValinta) {
+    const valinnat = ["rock", "paper", "scissors"];
+    const tietokoneenValinta = valinnat[Math.floor(Math.random() * valinnat.length)];
+
+    let result;
+
+    if (pelaajanValinta === tietokoneenValinta) {
+        result = "It's a tie!";
+    } else if (
+        (pelaajanValinta === 'rock' && tietokoneenValinta === 'scissors') ||
+        (pelaajanValinta === 'paper' && tietokoneenValinta === 'rock') ||
+        (pelaajanValinta === 'scissors' && tietokoneenValinta === 'paper')
+    ) {
+        result = "You win!";
+    } else {
+        result = "Computer wins!";
+    }
+
+    document.getElementById('result').innerText = `You chose ${pelaajanValinta}, computer chose ${tietokoneenValinta}. ${result}`;
+}
+
+function easterEgg1(player, choice) {
+    kps(choice);
+}
+
+function easterEgg2(player) {
+    player.money += 10000;
+}
+
+function easterEgg3(player) {
+    const loseMoney = 1000;
+    if (player.money <= loseMoney) {
+        alert("Olisit juuri menettänyt 1000 rahaa pahan epäonnen vuoksi, mutta onneksesi säästyit!!!");
+        console.log("Rahan menetys peruttu -> ei tarpeeksi rahaa");
+    } else {
+        alert("Osa rahoistasi katosi lennon aikana kuin tuhkatuuleen :(");
+        player.money -= loseMoney;
+        console.log(player.money);
+    }
+}
+
+function easterEggMain(player) {
+    const randomNumber = Math.floor(Math.random() * 1000) + 1;
+
+    if (randomNumber === 1) {
+        const choice = prompt("Enter your choice: rock, paper, or scissors");
+        easterEgg1(player, choice);
+    } else if (randomNumber === 2) {
+        easterEgg2(player);
+    } else if (randomNumber === 3) {
+        easterEgg3(player);
+    }
+}
+
+
+document.querySelector('.valinta').addEventListener('click', function() {
+    easterEggMain(player)
+    let roll = rollDice()
+    document.querySelector('#budget').textContent = player.money
+    alert(`Sait tämän verran rahulia ${roll}e`)
+    console.log(player);
+})
+
+
+
+
