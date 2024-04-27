@@ -9,15 +9,40 @@
     <title>Document</title>
 </head>
 <body>
+<header class="page-header" style="padding: 0;">
+    <h1 class="page-title" style="margin: 0; padding: 2rem 0 0 0">
+        <ion-icon name="airplane-outline"></ion-icon>
+        &nbsp;Airport&nbsp;Destiny&nbsp;V2
+        <ion-icon name="airplane-outline"></ion-icon>
+    </h1>
+
+    <nav>
+        <ul class="flex-wrap space-evenly" style="padding-bottom: 1rem">
+            <li>
+                <a class="button button-white" href="page.html">Game</a>
+            </li>
+            <li>
+                <a class="button button-white" href="about.html">About</a>
+            </li>
+            <li>
+                <a class="button button-white" href="leaderboard.html">Leaderboard</a>
+            </li>
+        </ul>
+    </nav>
+</header>
 <h1> Airport destiny </h1>
-<p>
-    "Tervetuloa Airport Destiny -peliin! Peli on yksinpeli, missä matkaat ympäri euroopan suurimpia lentokenttiä. Euroopan maissa toimii tällä hetkellä yhteinen valuutta nimeltään 'raha'. Peli arpoo satunnaisesti 10 lentoaseman reitin, mistä muodostuu
-    pelin pelilauta. Peli toimii lautapelin kaltaisesti, missä vuorollasi heität noppaa, sekä voit valita mitä taktikointia harjoitat sen jälkeen. Tarkoituksena on päästä maaliin
-    mahdollisimman vähäisillä vuoroilla ja päästöillä. Lopuksi pisteet kerätään ylös pistetaulukkoon. Jos olet onnekas saatat törmätä yllätystapahtumiin pelin aikana.
+<p class="text">
+    "Tervetuloa Airport Destiny -peliin! Peli on yksinpeli, missä matkaat ympäri euroopan suurimpia lentokenttiä.
+    Euroopan maissa toimii tällä hetkellä yhteinen valuutta nimeltään 'raha'. Peli arpoo satunnaisesti 10 lentoaseman
+    reitin, mistä muodostuu
+    pelin pelilauta. Peli toimii lautapelin kaltaisesti, missä vuorollasi heität noppaa, sekä voit valita mitä
+    taktikointia harjoitat sen jälkeen. Tarkoituksena on päästä maaliin
+    mahdollisimman vähäisillä vuoroilla ja päästöillä. Lopuksi pisteet kerätään ylös pistetaulukkoon. Jos olet onnekas
+    saatat törmätä yllätystapahtumiin pelin aikana.
     Hyvää matkaa!
 </p>
-<h2> Pelinsisäiset lentokone vaihtoehdot: </h2>
-<ul>
+<h2 class="text">> Pelinsisäiset lentokone vaihtoehdot: </h2>
+<ul class="text">>
     <li>
         1. Sähkölentokone, Hinta 6000, päästöt 0.25kg/km
     </li>
@@ -38,8 +63,11 @@
     </li>
 </ul>
 <form action="page.html" method="POST">
-    <input type="submit" value="Pelaa">
+    <input id="pelaa" class="button-white button" type="submit" value="Pelaa">
 </form>
+<footer class="page-footer">
+    <p>Airport Destiny</p>
+</footer>
 </body>
 </html>
 

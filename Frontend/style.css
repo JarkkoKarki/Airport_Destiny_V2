@@ -2,7 +2,7 @@
 
 :root {
     --black: rgb(23, 23, 23);
-    --white: rgb(248, 246, 246);
+    --white: rgb(255, 255, 255);
     --grey: rgb(128, 128, 128);
     --dark-grey: rgb(57, 57, 57);
 }
@@ -341,7 +341,6 @@ main {
     color: #232323;
     filter: drop-shadow(0 0 15px #da9568);
     font-family: "Papyrus", sans-serif;
-    font-size: 4rem;
 }
 
 #back {
