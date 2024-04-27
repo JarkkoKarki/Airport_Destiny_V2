@@ -27,6 +27,7 @@ function gameLoop() {
     let vuoro = 0;
     let maxVuoro = 10;
     let diceRolled = false;
+
     function handlePlayerAction() {
         if (!diceRolled) {
             easterEggMain(player);
@@ -43,6 +44,7 @@ function gameLoop() {
 
     // Add event listener for the player's action button
     document.querySelector('.valinta').addEventListener('click', handlePlayerAction);
+
     // Main game loop
     function playGame() {
         while (vuoro < maxVuoro) {
@@ -50,13 +52,15 @@ function gameLoop() {
             vuoro++;
         }
     }
+
     // Start the game
     playGame();
 }
+
 gameLoop()
 
 
-function airportdata(data) {
+async function airportdata(data) {
     const airportNameElement = document.getElementById('airport-name');
     const airportCountryElement = document.getElementById('airport-country')
     const airportIdentElement = document.getElementById('airport-ident')
@@ -96,9 +100,37 @@ function airportdata(data) {
     const pelilautaElement = document.getElementById('pelilauta')
     let htmlElement = ""
     for (let i = 0; i < data.length; i++) {
-        htmlElement += `<li>${i + 1}. ${data[i]['name']}</li>`
+        const countryData = await fechCountries(data[i]['country']);
+        const countryCode = countryData;
+
+        // Fetch flag URL using country code
+        const flagURL = await fechFlagImg(countryCode);
+
+        // Create HTML list items with airport name and flag image
+        htmlElement += `<li>${i + 1}. ${data[i]['name']}<img class="flags" src="${flagURL}" alt="flag"></li>`;
     }
-    pelilautaElement.innerHTML = `<ul>${htmlElement}</ul>`
+
+    pelilautaElement.innerHTML = `<ul>${htmlElement}</ul>`;
+}
+
+async function fechCountries(country) {
+    try {
+        const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+        if (!response.ok) {
+            Error('Could not fetch resource');
+        }
+        const data = await response.json();
+        console.log('Fetched data:', data[0]['cca2']);
+        return data[0]['cca2']
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
+    }
+}
+
+async function fechFlagImg(countryCode) {
+    let flagURL = `https://flagsapi.com/${countryCode}/flat/64.png`;
+    return flagURL;
 }
 
 document.querySelector('#flight').addEventListener('click', function (evt) {
@@ -121,6 +153,7 @@ document.querySelector('#player-form').addEventListener('submit', function (evt)
     document.querySelector('#player-modal').classList.add('hide');
     initializeMap()
 })
+
 
 async function fetchData() {
     try {
@@ -153,6 +186,7 @@ async function initializeMap() {
     // Iterate through the first 10 airports in the data array
     for (let i = 0; i < maxAirports; i++) {
         const airport = data[i];
+        fechCountries(data[i]['country'])
 
         // Create a marker for each airport using latitude and longitude
         const marker = L.marker([airport.latitude_deg, airport.longitude_deg]).addTo(map);

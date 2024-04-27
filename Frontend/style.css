@@ -418,6 +418,13 @@ main {
     margin: 0 0 1rem 0;
 }
 
+.flags {
+    padding: 0 0 0.5rem 1rem;
+    float:right;
+    width: 35px;
+    height: auto;
+}
+
 @media screen and (min-width: 769px) {
     .box {
         font-size: initial;
