@@ -78,11 +78,32 @@ h1, h2, p, ul, form {
     padding: 1rem;
 }
 
+
 .text {
-    background-color: rgba(82, 91, 101, 0.64);
-    margin: 2rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    background: linear-gradient(90deg, #a0dcdc, #d9ccb0, #d9ccb0, #d0e8d0, #e7c6e7 , #d8e8a3, #d7acd7);
+    background-size: 400%; /* Adjust the size as needed */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: animateGradient 15s linear infinite;
+}
+
+@keyframes animateGradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: -150% 0%;
+    }
+}
+
+.back {
+    margin: 10rem;
     padding: 2rem;
     border-radius: 2rem;
+    background-color: rgba(1, 1, 1, 0.6);
 }
 
 #pelaa {
