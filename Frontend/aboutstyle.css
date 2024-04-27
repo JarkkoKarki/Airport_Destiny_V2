@@ -100,10 +100,12 @@ h1, h2, p, ul, form {
 }
 
 .back {
-    margin: 10rem;
+    width: 80%;
+    margin: auto;
     padding: 2rem;
     border-radius: 2rem;
     background-color: rgba(1, 1, 1, 0.6);
+    overflow: auto;
 }
 
 #pelaa {
@@ -132,18 +134,14 @@ ul {
 }
 
 @media screen and (min-width: 769px) {
+    .back .container{
+        width: 100%;
+        padding: 1rem;
+        margin: 1rem;
+    }
+
     .box {
+
         font-size: initial;
-    }
-
-    #map {
-        width: 40%;
-        height: initial;
-    }
-
-    .boxes {
-        width: 60%;
-        padding-left: 1rem;
-        box-sizing: border-box;
     }
 }

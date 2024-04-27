@@ -60,6 +60,52 @@ function gameLoop() {
 gameLoop()
 
 
+// PICTURE FROM COUNTRY
+async function pictures(data) {
+    const headers = {
+        'Authorization': 'kw6AUunTF71L7kKeuf7Sf5VhTD63RveTOo9Ow5fKBOSgSrNajFBi7lox'
+    };
+
+
+    const searchParams = {
+        query: `${data[0]['country']}`,
+        orientation: 'landscape',
+        size: 'medium',
+        locale: 'en-US',
+        page: 1,
+        per_page: 15
+    };
+
+    const queryString = new URLSearchParams(searchParams).toString();
+    const apiUrl = 'https://api.pexels.com/v1/search';
+    await fetch(`${apiUrl}?${queryString}`, {
+        method: 'GET',
+        headers: headers
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`Failed to search photos. Status code: ${response.status}`);
+            }
+        })
+        .then(searchResults => {
+            console.log('Search results:', searchResults);
+            if (searchResults.photos && searchResults.photos.length > 0) {
+                const firstPhoto = searchResults.photos[0];
+
+                const photoUrl = firstPhoto.src.original;
+                document.getElementById('kuva').src = photoUrl;
+            } else {
+                console.log('No photos found.');
+            }
+        })
+        .catch(error => {
+            console.error('Error searching photos:', error);
+        });
+}
+///
+
 async function airportdata(data) {
     const airportNameElement = document.getElementById('airport-name');
     const airportCountryElement = document.getElementById('airport-country')
@@ -111,6 +157,7 @@ async function airportdata(data) {
     }
 
     pelilautaElement.innerHTML = `<ul>${htmlElement}</ul>`;
+    pictures(data)
 }
 
 async function fechCountries(country) {
