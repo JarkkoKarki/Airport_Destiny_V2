@@ -10,16 +10,51 @@ map.setView([60, 24], 2);
 
 /// Player Stats
 const player = {
-    name:"playerName",
-    money:1000,
-    co2_emissions:0,
-    location:0,
-    turn:0
+    name: "playerName",
+    money: 1000,
+    co2_emissions: 0,
+    location: 0,
+    turn: 0
 }
 
 
 const blueIcon = L.divIcon({className: 'blue-icon'})
 const greenIcon = L.divIcon({className: 'green-icon'})
+
+
+// GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
+function gameLoop() {
+    let vuoro = 0;
+    let maxVuoro = 10;
+    let diceRolled = false;
+    function handlePlayerAction() {
+        if (!diceRolled) {
+            easterEggMain(player);
+            let roll = rollDice();
+            player.money += roll;
+            document.querySelector('#budget').textContent = player.money;
+            alert(`Sait tämän verran rahulia ${roll}e`);
+            console.log(player);
+            diceRolled = true;
+        } else {
+            alert("Et voi enää heittää noppaa tällä vuorolla.");
+        }
+    }
+
+    // Add event listener for the player's action button
+    document.querySelector('.valinta').addEventListener('click', handlePlayerAction);
+    // Main game loop
+    function playGame() {
+        while (vuoro < maxVuoro) {
+            diceRolled = false;
+            vuoro++;
+        }
+    }
+    // Start the game
+    playGame();
+}
+gameLoop()
+
 
 function airportdata(data) {
     const airportNameElement = document.getElementById('airport-name');
@@ -64,7 +99,6 @@ function airportdata(data) {
         htmlElement += `<li>${i + 1}. ${data[i]['name']}</li>`
     }
     pelilautaElement.innerHTML = `<ul>${htmlElement}</ul>`
-
 }
 
 document.querySelector('#flight').addEventListener('click', function (evt) {
@@ -139,7 +173,7 @@ async function initializeMap() {
     return data
 }
 
-function rollDice () {
+function rollDice() {
     let roll = Math.floor(Math.random() * 6) + 1;
     let rolledMoney = roll * 1000;
     player.money += rolledMoney;
@@ -201,13 +235,6 @@ function easterEggMain(player) {
 }
 
 
-document.querySelector('.valinta').addEventListener('click', function() {
-    easterEggMain(player)
-    let roll = rollDice()
-    document.querySelector('#budget').textContent = player.money
-    alert(`Sait tämän verran rahulia ${roll}e`)
-    console.log(player);
-})
 
 
 
