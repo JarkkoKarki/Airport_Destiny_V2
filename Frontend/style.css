@@ -273,7 +273,7 @@ main {
     transform: translateX(-2rem) translateY(-3.1rem);
 }
 
-.valinta {
+.valinta, .valinta1 {
     padding: 0.5rem;
     margin: 0.2rem;
     display: inline;
