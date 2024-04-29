@@ -1,5 +1,7 @@
 'use strict'
 
+let data = null
+
 // Kartta
 const map = L.map('map', {tap: false});
 L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
@@ -18,16 +20,44 @@ const player = {
     score: 0
 }
 
-
 const blueIcon = L.divIcon({className: 'blue-icon'})
 const greenIcon = L.divIcon({className: 'green-icon'})
 
 
 // GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
-function gameLoop() {
+function Airplane(name, cost, emissions) {
+    this.name = name;
+    this.cost = cost;
+    this.emissions = emissions;
+}
+
+function initializePlanes(airplaneConstructor) {
+    const plane1 = new airplaneConstructor('Sähkölentokone', 6000, 0.25);
+    const plane2 = new airplaneConstructor('Hybridilentokone', 5000, 0.30);
+    const plane3 = new airplaneConstructor('Sähköliitokone', 4000, 0.35);
+    const plane4 = new airplaneConstructor('Biodiesel Jet', 3000, 0.40);
+    const plane5 = new airplaneConstructor('Sähköhelikopteri', 2000, 0.45);
+    const plane6 = new airplaneConstructor('Aurinkovoimaraketti', 1000, 0.50);
+
+    return [plane1, plane2, plane3, plane4, plane5, plane6];
+}
+
+const planes = initializePlanes(Airplane);
+
+// GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
+let flyTurn = 0
+
+// GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
+function gameLoop(data) {
+    let flyTurn = 0
+    airportdata(data, flyTurn)
     let vuoro = 0;
     let maxVuoro = 10;
     let diceRolled = false;
+    let compensatedEmission = false
+    let lento = false
+    const turnElement = document.getElementById('vuorot')
+    turnElement.innerText = "vuoro " + flyTurn
 
     function handlePlayerAction() {
         if (!diceRolled) {
@@ -41,42 +71,165 @@ function gameLoop() {
         } else {
             alert("Et voi enää heittää noppaa tällä vuorolla.");
         }
+
     }
 
+    function EmissionAction(flyTurn) {
+        if (!compensatedEmission && !diceRolled) {
+            if (player.money >= 2000) {
+                easterEggMain(player);
+                player.money -= 1000
+                player.co2_emissions *= 0.9
+                document.querySelector('#consumed').textContent = player.co2_emissions
+                document.querySelector('#budget').textContent = player.money
+                compensatedEmission = true
+                alert(`Päästöt kompensoitu`)
+            } else {
+                alert('Ei tarpeeksi rahaa')
+            }
+        } else {
+            alert('Olet jo tehnyt toiminnon')
+        }
+    }
+
+    if (!lento) {
+        document.querySelector('#lento1').addEventListener('click', function (event) {
+            console.log(flyTurn)
+            event.preventDefault()
+            console.log(planes[0].cost)
+            if (player.money >= planes[0].cost) {
+                player.money -= planes[0].cost
+                alert("lento ostettu")
+                parseInt(flyTurn += 1)
+                airportdata(data, flyTurn)
+                lento = true
+                document.querySelector('#consumed').textContent = player.co2_emissions
+                document.querySelector('#budget').textContent = player.money
+                vuoro++
+                turnElement.innerText = "vuoro " + flyTurn
+                diceRolled = false
+            } else {
+                alert("Ei rahaa")
+            }
+        });
+        document.querySelector('#lento2').addEventListener('click', function (event) {
+            event.preventDefault()
+            if (player.money >= planes[1].cost) {
+                player.money -= planes[1].cost
+                alert("lento ostettu")
+                parseInt(flyTurn += 1)
+                airportdata(data, flyTurn)
+                lento = true
+                document.querySelector('#consumed').textContent = player.co2_emissions
+                document.querySelector('#budget').textContent = player.money
+                vuoro++
+                turnElement.innerText = "vuoro " + flyTurn
+                diceRolled = false
+            } else {
+                alert("Ei rahaa")
+            }
+        });
+        document.querySelector('#lento3').addEventListener('click', function (event) {
+            event.preventDefault()
+            if (player.money >= planes[2].cost) {
+                player.money -= planes[2].cost
+                alert("lento ostettu")
+                parseInt(flyTurn += 1)
+                airportdata(data, flyTurn)
+                lento = true
+                document.querySelector('#consumed').textContent = player.co2_emissions
+                document.querySelector('#budget').textContent = player.money
+                vuoro++
+                turnElement.innerText = "vuoro " + flyTurn
+                diceRolled = false
+            } else {
+                alert("Ei rahaa")
+            }
+        });
+        document.querySelector('#lento4').addEventListener('click', function (event) {
+            event.preventDefault()
+            if (player.money >= planes[3].cost) {
+                player.money -= planes[3].cost
+                alert("lento ostettu")
+                parseInt(flyTurn += 1)
+                airportdata(data, flyTurn)
+                lento = true
+                document.querySelector('#consumed').textContent = player.co2_emissions
+                document.querySelector('#budget').textContent = player.money
+                vuoro++
+                turnElement.innerText = "vuoro " + flyTurn
+                diceRolled = false
+            } else {
+                alert("Ei rahaa")
+            }
+        });
+        document.querySelector('#lento5').addEventListener('click', function (event) {
+            event.preventDefault()
+            if (player.money >= planes[4].cost) {
+                player.money -= planes[4].cost
+                alert("lento ostettu")
+                parseInt(flyTurn += 1)
+                airportdata(data, flyTurn)
+                lento = true
+                document.querySelector('#consumed').textContent = player.co2_emissions
+                document.querySelector('#budget').textContent = player.money
+                vuoro++
+                turnElement.innerText = "vuoro " + flyTurn
+                diceRolled = false
+            } else {
+                alert("Ei rahaa")
+            }
+        });
+        document.querySelector('#lento6').addEventListener('click', function (event) {
+            event.preventDefault()
+            if (player.money >= planes[5].cost) {
+                player.money -= planes[5].cost
+                alert("lento ostettu")
+                parseInt(flyTurn += 1)
+                airportdata(data, flyTurn)
+                lento = true
+                document.querySelector('#consumed').textContent = player.co2_emissions
+                document.querySelector('#budget').textContent = player.money
+                vuoro++
+                turnElement.innerHTNL = "vuoro " + flyTurn
+                diceRolled = false
+            } else {
+                alert("Ei rahaa")
+            }
+        });
+    }
+
+    document.querySelector('.valinta1').addEventListener('click', EmissionAction);
     // Add event listener for the player's action button
     document.querySelector('.valinta').addEventListener('click', handlePlayerAction);
 
     // Main game loop
     function playGame() {
         while (vuoro < maxVuoro) {
-            diceRolled = false;
-            vuoro++;
+            console.log(vuoro + "VUOROROO")
+            lento = true;
+            vuoro++
         }
     }
 
-    // Start the game
-    playGame();
 }
-
-gameLoop()
 
 
 // PICTURE FROM COUNTRY
-async function pictures(data) {
+async function pictures(data, flyTurn) {
     const headers = {
         'Authorization': 'kw6AUunTF71L7kKeuf7Sf5VhTD63RveTOo9Ow5fKBOSgSrNajFBi7lox'
     };
 
 
     const searchParams = {
-        query: `${data[0]['country']}`,
+        query: `${data[flyTurn]['country']}`,
         orientation: 'landscape',
         size: 'medium',
         locale: 'en-US',
         page: 1,
         per_page: 15
     };
-
     const queryString = new URLSearchParams(searchParams).toString();
     const apiUrl = 'https://api.pexels.com/v1/search';
     await fetch(`${apiUrl}?${queryString}`, {
@@ -94,7 +247,6 @@ async function pictures(data) {
             console.log('Search results:', searchResults);
             if (searchResults.photos && searchResults.photos.length > 0) {
                 const firstPhoto = searchResults.photos[0];
-
                 const photoUrl = firstPhoto.src.original;
                 document.getElementById('kuva').src = photoUrl;
             } else {
@@ -105,43 +257,44 @@ async function pictures(data) {
             console.error('Error searching photos:', error);
         });
 }
-///
 
-async function airportdata(data) {
+///
+async function airportdata(data, flyTurn) {
+    console.log(flyTurn + " DATAS")
+    console.log(data + "new dataa")
     const airportNameElement = document.getElementById('airport-name');
     const airportCountryElement = document.getElementById('airport-country')
     const airportIdentElement = document.getElementById('airport-ident')
     const airportCordElement = document.getElementById('airport-cord')
-    airportNameElement.textContent = data[0]['name'];
-    airportCountryElement.textContent = data[0]['country']
-    airportIdentElement.textContent = data[0]['ident']
-    airportCordElement.innerHTML = `${data[0]['longitude_deg'].toFixed(2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[0]['latitude_deg'].toFixed(2)}`
+    console.log(data[flyTurn]['name'])
+    airportNameElement.textContent = data[flyTurn]['name'];
+    airportCountryElement.textContent = data[flyTurn]['country']
+    airportIdentElement.textContent = data[flyTurn]['ident']
+    airportCordElement.innerHTML = `${data[flyTurn]['longitude_deg'].toFixed(2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[flyTurn]['latitude_deg'].toFixed(2)}`
 
 
     const airportNextNameElement = document.getElementById('nairport-name');
     const airportNextCountryElement = document.getElementById('nairport-country')
     const airportNextIdentElement = document.getElementById('nairport-ident')
     const airportNextCordElement = document.getElementById('nairport-cord')
-    airportNextNameElement.textContent = data[1]['name'];
-    airportNextCountryElement.textContent = data[1]['country']
-    airportNextIdentElement.textContent = data[1]['ident']
-    airportNextCordElement.innerHTML = `${data[1]['longitude_deg'].toFixed(2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[1]['latitude_deg'].toFixed(2)}`
+    airportNextNameElement.textContent = data[flyTurn + 1]['name'];
+    airportNextCountryElement.textContent = data[flyTurn + 1]['country']
+    airportNextIdentElement.textContent = data[flyTurn + 1]['ident']
+    airportNextCordElement.innerHTML = `${data[flyTurn + 1]['longitude_deg'].toFixed(2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[flyTurn + 1]['latitude_deg'].toFixed(2)}`
 
-    let lat2 = data[1]['latitude_deg']
-    let lat1 = data[0]['latitude_deg']
-    let lon1 = data[0]['longitude_deg']
-    let lon2 = data[1]['longitude_deg']
+    let lat2 = data[flyTurn + 1]['latitude_deg']
+    let lat1 = data[flyTurn]['latitude_deg']
+    let lon1 = data[flyTurn]['longitude_deg']
+    let lon2 = data[flyTurn + 1]['longitude_deg']
     let R = 6371; // km
     let dLat = (lat2 - lat1) * (Math.PI / 180);
     let dLon = (lon2 - lon1) * (Math.PI / 180);
     lat1 = (lat1) * (Math.PI / 180);
     lat2 = (lat2) * (Math.PI / 180);
-
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var dist = R * c;
-
     const airportNextDistElement = document.getElementById('nairport-distance')
     airportNextDistElement.textContent = dist.toFixed(2) + ' km'
     const pelilautaElement = document.getElementById('pelilauta')
@@ -149,16 +302,14 @@ async function airportdata(data) {
     for (let i = 0; i < data.length; i++) {
         const countryData = await fechCountries(data[i]['country']);
         const countryCode = countryData;
-
         // Fetch flag URL using country code
         const flagURL = await fechFlagImg(countryCode);
-
         // Create HTML list items with airport name and flag image
         htmlElement += `<li>${i + 1}. ${data[i]['name']}<img class="flags" src="${flagURL}" alt="flag"></li>`;
     }
 
     pelilautaElement.innerHTML = `<ul>${htmlElement}</ul>`;
-    pictures(data)
+    pictures(data, flyTurn)
 }
 
 async function fechCountries(country) {
@@ -185,7 +336,6 @@ document.querySelector('#flight').addEventListener('click', function (evt) {
     evt.preventDefault();
     document.querySelector('#player-modal1').classList.remove('hide');
 })
-
 document.querySelector('#close').addEventListener('click', function (evt) {
     evt.preventDefault()
     document.querySelector('#player-modal1').classList.add('hide');
@@ -193,19 +343,19 @@ document.querySelector('#close').addEventListener('click', function (evt) {
 
 
 ///Player Name
-document.querySelector('#player-form').addEventListener('submit', function (evt) {
+document.querySelector('#player-form').addEventListener('submit', async function (evt) {
     evt.preventDefault();
     const playerName = document.querySelector('#player-input').value;
     document.querySelector('#player-name').textContent = playerName;
     player.name = playerName;
     document.querySelector('#player-modal').classList.add('hide');
-    initializeMap()
+    data = await initializeMap()
+    gameLoop(data)
 })
-
 
 async function fetchData() {
     try {
-        const response = await fetch(`http://127.0.0.1:3000/newgame`);
+        const response = await fetch(`http://127.0.0.1:3001/newgame`);
         if (!response.ok) {
             Error('Could not fetch resource');
         }
@@ -224,50 +374,39 @@ async function initializeMap() {
         console.log('No data available or data is not an array');
         return;
     }
-
     // Create a layer group for airport markers
     const airportMarkers = L.layerGroup().addTo(map);
-
     // Limit iteration to the first 10 airports or the length of data, whichever is smaller
     const maxAirports = Math.min(data.length, 10);
-
     // Iterate through the first 10 airports in the data array
     for (let i = 0; i < maxAirports; i++) {
         const airport = data[i];
         fechCountries(data[i]['country'])
-
         // Create a marker for each airport using latitude and longitude
         const marker = L.marker([airport.latitude_deg, airport.longitude_deg]).addTo(map);
-
         // Add popup information to the marker with airport's name
         marker.bindPopup(`${i + 1}. Airport ${airport.name}`)
-
         // Add the marker to the airport markers layer group
         airportMarkers.addLayer(marker);
-
         if (i === 0) {
             map.flyTo([airport.latitude_deg, airport.longitude_deg], 5)
             marker.openPopup()
             marker.setIcon(blueIcon)
         }
     }
-    airportdata(data)
     return data
 }
 
 function rollDice() {
     let roll = Math.floor(Math.random() * 6) + 1;
     let rolledMoney = roll * 1000;
-    player.money += rolledMoney;
     return rolledMoney;
 }
 
 function kps(pelaajanValinta) {
     const valinnat = ["rock", "paper", "scissors"];
     const tietokoneenValinta = valinnat[Math.floor(Math.random() * valinnat.length)];
-
     let result;
-
     if (pelaajanValinta === tietokoneenValinta) {
         result = "It's a tie!";
     } else if (
@@ -279,7 +418,6 @@ function kps(pelaajanValinta) {
     } else {
         result = "Computer wins!";
     }
-
     document.getElementById('result').innerText = `You chose ${pelaajanValinta}, computer chose ${tietokoneenValinta}. ${result}`;
 }
 
@@ -305,7 +443,6 @@ function easterEgg3(player) {
 
 function easterEggMain(player) {
     const randomNumber = Math.floor(Math.random() * 1000) + 1;
-
     if (randomNumber === 1) {
         const choice = prompt("Enter your choice: rock, paper, or scissors");
         easterEgg1(player, choice);
@@ -316,26 +453,25 @@ function easterEggMain(player) {
     }
 }
 
-
 fetch('http://127.0.0.1:5000/player_stats', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(player)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to save player stats');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Player stats saved:', data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(player)
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to save player stats');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Player stats saved:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
 
 
