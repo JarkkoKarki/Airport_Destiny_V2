@@ -233,10 +233,6 @@ main {
     padding: 2rem;
 }
 
-#pelilauta li:first-child {
-    color: #2474ff;
-}
-
 #footer-icon {
     font-size: 3rem;
     margin: 0 0 3rem 3rem;
