@@ -3,6 +3,7 @@ import random
 import json
 from flask import Flask, request
 from flask_cors import CORS
+from Player_stats import *
 
 def yhteys():
     connection = mysql.connector.connect(
@@ -58,6 +59,27 @@ def aloitus():
     random_airports_data = satunnaiset_maat(connection)
     json_data = json.dumps(random_airports_data, indent=4)
     return json_data
+
+@app.route('/player_stats', methods=['POST'])
+def save_player_stats():
+    data = request.json
+    name = data.get('name')
+    money = data.get('money')
+    co2_emissions = data.get('co2_emissions')
+    location = data.get('location')
+    turn = data.get('turn')
+    score = data.get('score')
+
+    if name is not None:
+        session = Session()
+        player_stats = PlayerStats(name=name, money=money, co2_emissions=co2_emissions, location=location, turn=turn,
+                                   score=score)
+        session.add(player_stats)
+        session.commit()
+        session.close()
+        return jsonify({'message': 'Player stats saved successfully'}), 200
+    else:
+        return jsonify({'error': 'Player name not provided'}), 400
 
 
 if __name__ == '__main__':
