@@ -4,7 +4,6 @@ import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-
 def yhteys():
     connection = mysql.connector.connect(
         host="127.0.0.1",
