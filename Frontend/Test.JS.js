@@ -127,6 +127,7 @@ function gameLoop(data) {
                 diceRolled = false
                 handleFlightAction(flyTurn)
                 turnElement.innerText = "vuoro " + vuoro
+                document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
                     alert("voitit Pelin")
                     const pelilauta = document.querySelector(`#child${flyTurn + 1}`);
@@ -152,6 +153,7 @@ function gameLoop(data) {
                 diceRolled = false
                 handleFlightAction(flyTurn)
                 turnElement.innerText = "vuoro " + vuoro
+                document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
                     alert("voitit Pelin")
                     const pelilauta = document.querySelector(`#child${flyTurn + 1}`);
@@ -177,6 +179,7 @@ function gameLoop(data) {
                 diceRolled = false
                 handleFlightAction(flyTurn)
                 turnElement.innerText = "vuoro " + vuoro
+                document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
                     alert("voitit Pelin")
                     const pelilauta = document.querySelector(`#child${flyTurn + 1}`);
@@ -202,6 +205,7 @@ function gameLoop(data) {
                 diceRolled = false
                 handleFlightAction(flyTurn)
                 turnElement.innerText = "vuoro " + vuoro
+                document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
                     alert("voitit Pelin")
                     const pelilauta = document.querySelector(`#child${flyTurn + 1}`);
@@ -227,6 +231,7 @@ function gameLoop(data) {
                 diceRolled = false
                 handleFlightAction(flyTurn)
                 turnElement.innerText = "vuoro " + vuoro
+                document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
                     alert("voitit Pelin")
                     const pelilauta = document.querySelector(`#child${flyTurn + 1}`);
@@ -252,6 +257,7 @@ function gameLoop(data) {
                 diceRolled = false
                 handleFlightAction(flyTurn)
                 turnElement.innerText = "vuoro " + vuoro
+                document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
                     alert("voitit Pelin")
                     const pelilauta = document.querySelector(`#child${flyTurn + 1}`);
@@ -534,7 +540,7 @@ function easterEggMain(player) {
     }
 }
 
-fetch('http://127.0.0.1:5000/player_stats', {
+fetch('http://127.0.0.1:3001/player_stats', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

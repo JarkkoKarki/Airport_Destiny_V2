@@ -1,9 +1,9 @@
 import mysql.connector
 import random
 import json
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-from Player_stats import *
+
 
 def yhteys():
     connection = mysql.connector.connect(
@@ -16,8 +16,8 @@ def yhteys():
     )
     return connection
 
-def satunnaiset_maat(connection):
 
+def satunnaiset_maat(connection):
     cursor = connection.cursor()
     sql = ("""select ident, latitude_deg, longitude_deg, airport.name, country.name from airport, country
     where airport.iso_country=country.iso_country 
@@ -26,7 +26,7 @@ def satunnaiset_maat(connection):
     cursor.execute(sql)
     result = cursor.fetchall()
     result = result
-#
+    #
     # random.sample varmistaa, että luvut eivät toistu
     pelilauta = []
 
@@ -49,10 +49,10 @@ def satunnaiset_maat(connection):
 
 connection = yhteys()
 
-
 app = Flask(__name__)
 
 CORS(app)
+
 
 @app.route('/newgame')
 def aloitus():
@@ -60,8 +60,27 @@ def aloitus():
     json_data = json.dumps(random_airports_data, indent=4)
     return json_data
 
+def create_table(connection):
+    create_table_query = """CREATE TABLE IF NOT EXISTS player_stats (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255),
+        money FLOAT,
+        co2_emissions FLOAT,
+        location VARCHAR(255),
+        turn INT,
+        score INT
+    )"""
+    cursor = connection.cursor()
+    cursor.execute(create_table_query)
+    connection.commit()
+
+
 @app.route('/player_stats', methods=['POST'])
 def save_player_stats():
+    # Luo yhteys tietokantaan funktion sisällä
+    connection = yhteys()
+
+    # Lue JSON-data requestista
     data = request.json
     name = data.get('name')
     money = data.get('money')
@@ -70,29 +89,31 @@ def save_player_stats():
     turn = data.get('turn')
     score = data.get('score')
 
+    # Tarkista, onko 'name' annettu
     if name is not None:
-        session = Session()
-        player_stats = PlayerStats(name=name, money=money, co2_emissions=co2_emissions, location=location, turn=turn,
-                                   score=score)
-        session.add(player_stats)
-        session.commit()
-        session.close()
-        return jsonify({'message': 'Player stats saved successfully'}), 200
+        # Varmista, että tietokantayhteys on käytettävissä
+        if connection:
+            create_table(connection)  # Luo taulukko tarvittaessa
+
+            cursor = connection.cursor()
+            insert_query = """
+                INSERT INTO player_stats (name, money, co2_emissions, location, turn, score)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """
+            values = (name, money, co2_emissions, location, turn, score)
+            cursor.execute(insert_query, values)
+            connection.commit()
+            cursor.close()
+
+            # Älä sulje yhteyttä täällä
+            # connection.close()
+
+            return jsonify({'message': 'Player stats saved successfully'}), 200
+        else:
+            return jsonify({'error': 'Failed to connect to the database'}), 500
     else:
         return jsonify({'error': 'Player name not provided'}), 400
 
 
 if __name__ == '__main__':
-    app.run(use_reloader=True, host='127.0.0.1', port=3000)
-
-
-
-
-# Initialize database tables
-
-# Get 10 random airports and store their data as dictionaries
-# random_airports_data = satunnaiset_maat(connection)
-
-# Convert airport data to JSON format
-#json_data = json.dumps(random_airports_data, indent=4)
-#print(json_data)
+    app.run(use_reloader=True, host='127.0.0.1', port=3001)
