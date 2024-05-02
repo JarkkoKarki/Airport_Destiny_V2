@@ -1,5 +1,4 @@
 'use strict';
-
 let data = null;
 let marker;
 // Kartta
@@ -19,6 +18,8 @@ const player = {
   turn: 0,
   score: 0,
 };
+
+const musicElement = document.getElementById('music').value;
 
 const blueIcon = L.divIcon({className: 'blue-icon'});
 const greenIcon = L.divIcon({className: 'green-icon'});
@@ -76,6 +77,13 @@ function gameLoop(data) {
   let compensatedEmission = false;
   let lento = false;
   const turnElement = document.getElementById('vuorot');
+  const audio = document.querySelector('audio');
+  if (musicElement === true) {
+    audio.volume = 0.5; // Set the volume to 50%
+    audio.play();
+  } else {
+    alert("musiikit pois päältä")
+  }
 
   function handlePlayerAction() {
     if (!diceRolled) {
@@ -484,9 +492,6 @@ document.querySelector('#player-form').
     document.querySelector('#player-modal').classList.add('hide');
     data = await initializeMap();
     gameLoop(data);
-    const audio = document.querySelector('audio');
-    audio.volume = 0.5; // Set the volume to 50%
-    audio.play();
   });
 
 async function fetchData() {
