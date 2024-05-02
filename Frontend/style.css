@@ -1,7 +1,7 @@
 /* variables */
 
 :root {
-    --black: rgb(23, 23, 23);
+    --black: rgb(63, 65, 63);
     --white: rgb(255, 255, 255);
     --grey: rgb(128, 128, 128);
     --dark-grey: rgb(57, 57, 57);
@@ -54,7 +54,11 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Verdana, Georgia, Tahoma, sans-serif;
-    background-image: linear-gradient(45deg, rgba(148, 138, 138, 0.24), #9f9790);
+    /*background-image: linear-gradient(45deg, rgba(148, 138, 138, 0.24), #9f9790);*/
+    background-image: url("../pic/tausta1.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     scroll-behavior: smooth;
 }
 
@@ -68,6 +72,9 @@ html, body {
     background-color: var(--black);
     color: var(--white);
     padding: 1rem;
+    border-bottom: 0.1rem dotted rgba(208, 209, 210, 0.18);
+    filter: drop-shadow(1px 1px 5px white) drop-shadow(3px 3px 10px rgba(77, 77, 77, 0.55));
+    border-radius: 0 0 1rem 1rem;
 }
 
 .page-footer {
@@ -127,7 +134,9 @@ main {
     width: 100%;
     text-align: center;
     border: var(--grey) solid 1px;
-    border-radius: 4px;
+    background-color: rgba(71, 98, 94, 0.42);
+    filter: drop-shadow(2px 2px 5px whitesmoke);
+    border-radius: 7px;
 }
 
 .box li {
@@ -214,7 +223,6 @@ main {
     background-size: cover;
     text-align: center;
 }
-
 
 
 #pelilauta {
@@ -430,7 +438,7 @@ main {
 
 .flags {
     padding: 0 0 0.5rem 1rem;
-    float:right;
+    float: right;
     width: 35px;
     height: auto;
 }

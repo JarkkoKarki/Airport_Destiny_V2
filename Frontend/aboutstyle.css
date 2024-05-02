@@ -11,7 +11,7 @@ body {
 }
 
 :root {
-    --black: rgb(54, 54, 54);
+    --black: rgb(92, 96, 103);
     --white: rgb(187, 187, 187);
     --grey: rgb(128, 128, 128);
     --dark-grey: rgb(57, 57, 57);
@@ -122,6 +122,9 @@ h1, h2, p, ul, form {
     background-color: var(--black);
     color: var(--white);
     padding: 1rem;
+    border-bottom: 0.1rem dotted rgba(208, 209, 210, 0.18);
+    filter: drop-shadow(1px 1px 5px white);
+
 }
 
 .page-footer {

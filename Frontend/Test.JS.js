@@ -514,6 +514,7 @@ function easterEgg1(player, choice) {
 
 function easterEgg2(player) {
     player.money += 10000;
+    alert("Löysit jotain")
 }
 
 function easterEgg3(player) {
