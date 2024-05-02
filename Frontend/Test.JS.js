@@ -616,3 +616,21 @@ fetch('http://127.0.0.1:3001/player_stats', {
   console.error('Error:', error);
 });
 
+
+async function leaderboardData() {
+  try {
+    const response = await fetch(`http://127.0.0.1:3001/leaderboard`);
+    if (!response.ok) {
+      Error('Could not fetch resource');
+    }
+    const data = await response.json();
+    console.log('jos luet tämän pelaajien scoret tuotu onnistuneesti');
+    return data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return null;
+  }
+}
+
+leaderboardData()
+

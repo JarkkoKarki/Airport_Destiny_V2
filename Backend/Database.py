@@ -4,6 +4,8 @@ import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+
+
 def yhteys():
     connection = mysql.connector.connect(
         host="127.0.0.1",
@@ -44,6 +46,21 @@ def satunnaiset_maat(connection):
         pelilauta.append(airport_dict)
 
     return pelilauta
+
+
+def player_stats(connection):
+    cursor = connection.cursor()
+    sql = "SELECT name, score From player_stats ORDER BY score DESC"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    players = []
+    for player in result:
+        player_stats = {
+            "Player": player[0],
+            "score": player[1]
+        }
+        players.append(player_stats)
+    return players
 
 
 connection = yhteys()
@@ -112,6 +129,12 @@ def save_player_stats():
             return jsonify({'error': 'Failed to connect to the database'}), 500
     else:
         return jsonify({'error': 'Player name not provided'}), 400
+
+@app.route('/leaderboard')
+def send_player_leaderboard():
+    player_stats_data = player_stats(connection)
+    json_data = json.dumps(player_stats_data, indent=4)
+    return json_data
 
 
 if __name__ == '__main__':
