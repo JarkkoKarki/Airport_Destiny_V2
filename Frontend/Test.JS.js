@@ -20,7 +20,7 @@ const player = {
 };
 
 const musicElement = document.getElementById('music').value;
-
+const audio = document.getElementById('music')
 const blueIcon = L.divIcon({className: 'blue-icon'});
 const greenIcon = L.divIcon({className: 'green-icon'});
 
@@ -462,7 +462,6 @@ document.querySelector('#player-form').addEventListener('submit', async function
     player.name = playerName;
     document.querySelector('#player-modal').classList.add('hide');
     data = await initializeMap();
-    const audio = document.getElementById('music')
     audio.volume = 0.5;
     audio.play();
     gameLoop(data);
