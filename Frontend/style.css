@@ -65,6 +65,26 @@ html, body {
     scroll-behavior: smooth;
 }
 
+#smoke {
+    background-image: url("../pic/smoke.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 3rem;
+    height: 2rem;
+    filter: drop-shadow(1px 1px 5px white) drop-shadow(3px 3px 10px rgba(77, 77, 77, 0.55));
+}
+#money{
+    background-image: url("../pic/raha.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 3rem;
+    height: 2rem;
+    border: none;
+    filter: drop-shadow(1px 1px 5px white) drop-shadow(3px 3px 10px rgba(77, 77, 77, 0.55));
+
+}
 .container {
     width: 100%;
     position: relative;
