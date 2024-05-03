@@ -19,6 +19,8 @@ const player = {
     score: 0,
 };
 
+let dist
+
 const musicElement = document.getElementById('music').value;
 const audio = document.getElementById('music')
 const blueIcon = L.divIcon({className: 'blue-icon'});
@@ -46,16 +48,15 @@ function addPadding(footerIcon, number) {
 }
 
 function initializePlanes(airplaneConstructor) {
-    const plane1 = new airplaneConstructor('Sähkölentokone', 6000, 0.25);
-    const plane2 = new airplaneConstructor('Hybridilentokone', 5000, 0.30);
-    const plane3 = new airplaneConstructor('Sähköliitokone', 4000, 0.35);
-    const plane4 = new airplaneConstructor('Biodiesel Jet', 3000, 0.40);
-    const plane5 = new airplaneConstructor('Sähköhelikopteri', 2000, 0.45);
-    const plane6 = new airplaneConstructor('Aurinkovoimaraketti', 1000, 0.50);
+    const plane0 = new airplaneConstructor('Sähkölentokone', 6000, 0.25);
+    const plane1 = new airplaneConstructor('Hybridilentokone', 5000, 0.30);
+    const plane2 = new airplaneConstructor('Sähköliitokone', 4000, 0.35);
+    const plane3 = new airplaneConstructor('Biodiesel Jet', 3000, 0.40);
+    const plane4 = new airplaneConstructor('Sähköhelikopteri', 2000, 0.45);
+    const plane5 = new airplaneConstructor('Aurinkovoimaraketti', 1000, 0.50);
 
-    return [plane1, plane2, plane3, plane4, plane5, plane6];
+    return [plane0, plane1, plane2, plane3, plane4, plane5];
 }
-
 const planes = initializePlanes(Airplane);
 
 // GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
@@ -66,7 +67,6 @@ function gameLoop(data) {
     let flyTurn = 0;
 
     // Other code for game loop setup
-
     // Function to handle flight actions
     function handleFlightAction(flyTurn) {
         // Get the latitude and longitude of the current airport
@@ -112,9 +112,8 @@ function gameLoop(data) {
             if (player.money >= 2000) {
                 easterEggMain(player);
                 player.money -= 1000;
-                player.co2_emissions *= 0.9;
-                document.querySelector(
-                    '#consumed').textContent = player.co2_emissions;
+                player.co2_emissions *= 0.6;
+                document.querySelector('#consumed').textContent = player.co2_emissions.toFixed(2);
                 document.querySelector('#budget').textContent = player.money;
                 compensatedEmission = true;
                 alert(`Päästöt kompensoitu`);
@@ -131,8 +130,11 @@ function gameLoop(data) {
         alert(`Lento ${flight + 1} ostettu`)
         flyTurn += 1
         airportdata(data, flyTurn)
-        lento = true
+        const emissions = planes[flight]['emissions'] * dist
+        player.co2_emissions += emissions
         document.querySelector('#consumed').textContent = player.co2_emissions;
+        lento = true
+        document.querySelector('#consumed').textContent = player.co2_emissions.toFixed(2);
         document.querySelector('#budget').textContent = player.money;
         vuoro++;
         diceRolled = false;
@@ -310,7 +312,7 @@ async function airportdata(data, flyTurn) {
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var dist = R * c;
+    dist = R * c;
     const airportNextDistElement = document.getElementById('nairport-distance');
     airportNextDistElement.textContent = dist.toFixed(2) + ' km';
     const pelilautaElement = document.getElementById('pelilauta');
@@ -447,7 +449,7 @@ function kps(pelaajanValinta) {
         player.money * 2;
     } else {
         result = 'Computer wins! if you have over 1000 raha you lose half of it :,(';
-        if (player.money > 1000){
+        if (player.money > 1000) {
             player.money * 0.5
         }
     }
