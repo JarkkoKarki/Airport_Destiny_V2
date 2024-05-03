@@ -33,13 +33,10 @@ document.querySelector('#flight').addEventListener('click', function (evt) {
 })
 
 
-
-
-
 async function gameSetup(url) {
-        airportMarkers.clearLayers();
-        const gameData = await getData(url);
-        console.log(gameData);
+    airportMarkers.clearLayers();
+    const gameData = await getData(url);
+    console.log(gameData);
 }
 
 // function to fetch data from API
@@ -97,7 +94,6 @@ function checkGameOver(budget) {
     }
     return true;
 }
-
 
 
 // function to set up game
