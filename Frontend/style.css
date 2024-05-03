@@ -224,7 +224,7 @@ main {
     margin-bottom: 5rem;
 }
 
-#back1 {
+.back1 {
     overflow: auto;
     width: 100%; /* Adjusted to fill the entire width */
     max-width: 100%; /* To prevent tables from overflowing */
@@ -379,7 +379,7 @@ main {
     height: auto;
 }
 
-#back {
+.back {
     width: 100%;
     height: 50%;
     align-content: center;
@@ -461,11 +461,11 @@ main {
 }
 
 @media screen and (min-width: 769px) {
-    #back1 {
+    .back1 {
         width: 80%;
     }
 
-    #player-modal #back {
+    #player-modal .back {
         width: 40%;
         align-content: center;
     }
