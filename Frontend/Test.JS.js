@@ -83,6 +83,7 @@ function gameLoop(data) {
         });
     }
 
+
     airportdata(data, flyTurn);
     let vuoro = 1;
     let maxVuoro = 10;
@@ -125,36 +126,38 @@ function gameLoop(data) {
         }
     }
 
+    function fly(flight) {
+        player.money -= planes[flight].cost
+        alert(`Lento ${flight + 1} ostettu`)
+        flyTurn += 1
+        airportdata(data, flyTurn)
+        lento = true
+        document.querySelector('#consumed').textContent = player.co2_emissions;
+        document.querySelector('#budget').textContent = player.money;
+        vuoro++;
+        diceRolled = false;
+        handleFlightAction(flyTurn);
+        turnElement.innerText = 'vuoro ' + vuoro;
+        if (vuoro === 10) {
+            savePlayerStats()
+            alert('voitit Pelin');
+            const pelilauta = document.querySelector(
+                `#child${flyTurn + 1}`);
+            const pelilautabefore = document.querySelector(
+                `#child${flyTurn}`);
+            pelilautabefore.style.color = '';
+            pelilauta.style.color = 'yellow';
+        }
+
+    }
+
     if (!lento) {
         document.querySelector('#lento1').addEventListener('click', function (event) {
             console.log(flyTurn);
             event.preventDefault();
             console.log(planes[0].cost);
             if (player.money >= planes[0].cost) {
-                player.money -= planes[0].cost;
-                alert('lento ostettu');
-                flyTurn += 1;
-                airportdata(data, flyTurn);
-                lento = true;
-                document.querySelector(
-                    '#consumed').textContent = player.co2_emissions;
-                document.querySelector('#budget').textContent = player.money;
-                vuoro++;
-                diceRolled = false;
-                handleFlightAction(flyTurn);
-                turnElement.innerText = 'vuoro ' + vuoro;
-                document.querySelector('#player-modal1').classList.add('hide');
-                addPadding(footerIcon, 10)
-                if (vuoro === 10) {
-                    savePlayerStats()
-                    alert('voitit Pelin');
-                    const pelilauta = document.querySelector(
-                        `#child${flyTurn + 1}`);
-                    const pelilautabefore = document.querySelector(
-                        `#child${flyTurn}`);
-                    pelilautabefore.style.color = '';
-                    pelilauta.style.color = 'yellow';
-                }
+                fly(0)
             } else {
                 alert('Ei rahaa');
             }
@@ -162,30 +165,7 @@ function gameLoop(data) {
         document.querySelector('#lento2').addEventListener('click', function (event) {
             event.preventDefault();
             if (player.money >= planes[1].cost) {
-                player.money -= planes[1].cost;
-                alert('lento ostettu');
-                flyTurn += 1;
-                airportdata(data, flyTurn);
-                lento = true;
-                document.querySelector(
-                    '#consumed').textContent = player.co2_emissions;
-                document.querySelector('#budget').textContent = player.money;
-                vuoro++;
-                diceRolled = false;
-                handleFlightAction(flyTurn);
-                turnElement.innerText = 'vuoro ' + vuoro;
-                document.querySelector('#player-modal1').classList.add('hide');
-                addPadding(footerIcon, 10)
-                if (vuoro === 10) {
-                    savePlayerStats()
-                    alert('voitit Pelin');
-                    const pelilauta = document.querySelector(
-                        `#child${flyTurn + 1}`);
-                    const pelilautabefore = document.querySelector(
-                        `#child${flyTurn}`);
-                    pelilautabefore.style.color = '';
-                    pelilauta.style.color = 'yellow';
-                }
+                fly(1)
             } else {
                 alert('Ei rahaa');
             }
@@ -193,30 +173,7 @@ function gameLoop(data) {
         document.querySelector('#lento3').addEventListener('click', function (event) {
             event.preventDefault();
             if (player.money >= planes[2].cost) {
-                player.money -= planes[2].cost;
-                alert('lento ostettu');
-                flyTurn += 1;
-                airportdata(data, flyTurn);
-                lento = true;
-                document.querySelector(
-                    '#consumed').textContent = player.co2_emissions;
-                document.querySelector('#budget').textContent = player.money;
-                vuoro++;
-                diceRolled = false;
-                handleFlightAction(flyTurn);
-                turnElement.innerText = 'vuoro ' + vuoro;
-                document.querySelector('#player-modal1').classList.add('hide');
-                addPadding(footerIcon, 10)
-                if (vuoro === 10) {
-                    savePlayerStats()
-                    alert('voitit Pelin');
-                    const pelilauta = document.querySelector(
-                        `#child${flyTurn + 1}`);
-                    const pelilautabefore = document.querySelector(
-                        `#child${flyTurn}`);
-                    pelilautabefore.style.color = '';
-                    pelilauta.style.color = 'yellow';
-                }
+                fly(2)
             } else {
                 alert('Ei rahaa');
             }
@@ -224,30 +181,7 @@ function gameLoop(data) {
         document.querySelector('#lento4').addEventListener('click', function (event) {
             event.preventDefault();
             if (player.money >= planes[3].cost) {
-                player.money -= planes[3].cost;
-                alert('lento ostettu');
-                flyTurn += 1;
-                airportdata(data, flyTurn);
-                lento = true;
-                document.querySelector(
-                    '#consumed').textContent = player.co2_emissions;
-                document.querySelector('#budget').textContent = player.money;
-                vuoro++;
-                diceRolled = false;
-                handleFlightAction(flyTurn);
-                turnElement.innerText = 'vuoro ' + vuoro;
-                document.querySelector('#player-modal1').classList.add('hide');
-                addPadding(footerIcon, 10)
-                if (vuoro === 10) {
-                    savePlayerStats()
-                    alert('voitit Pelin');
-                    const pelilauta = document.querySelector(
-                        `#child${flyTurn + 1}`);
-                    const pelilautabefore = document.querySelector(
-                        `#child${flyTurn}`);
-                    pelilautabefore.style.color = '';
-                    pelilauta.style.color = 'yellow';
-                }
+                fly(3)
             } else {
                 alert('Ei rahaa');
             }
@@ -255,30 +189,7 @@ function gameLoop(data) {
         document.querySelector('#lento5').addEventListener('click', function (event) {
             event.preventDefault();
             if (player.money >= planes[4].cost) {
-                player.money -= planes[4].cost;
-                alert('lento ostettu');
-                flyTurn += 1;
-                airportdata(data, flyTurn);
-                lento = true;
-                document.querySelector(
-                    '#consumed').textContent = player.co2_emissions;
-                document.querySelector('#budget').textContent = player.money;
-                vuoro++;
-                diceRolled = false;
-                handleFlightAction(flyTurn);
-                turnElement.innerText = 'vuoro ' + vuoro;
-                document.querySelector('#player-modal1').classList.add('hide');
-                addPadding(footerIcon, 10)
-                if (vuoro === 10) {
-                    alert('voitit Pelin');
-                    savePlayerStats()
-                    const pelilauta = document.querySelector(
-                        `#child${flyTurn + 1}`);
-                    const pelilautabefore = document.querySelector(
-                        `#child${flyTurn}`);
-                    pelilautabefore.style.color = '';
-                    pelilauta.style.color = 'yellow';
-                }
+                fly(4)
             } else {
                 alert('Ei rahaa');
             }
@@ -286,30 +197,7 @@ function gameLoop(data) {
         document.querySelector('#lento6').addEventListener('click', function (event) {
             event.preventDefault();
             if (player.money >= planes[5].cost) {
-                player.money -= planes[5].cost;
-                alert('lento ostettu');
-                flyTurn += 1;
-                airportdata(data, flyTurn);
-                lento = true;
-                document.querySelector(
-                    '#consumed').textContent = player.co2_emissions;
-                document.querySelector('#budget').textContent = player.money;
-                vuoro++;
-                diceRolled = false;
-                handleFlightAction(flyTurn);
-                turnElement.innerText = 'vuoro ' + vuoro;
-                document.querySelector('#player-modal1').classList.add('hide');
-                addPadding(footerIcon, 10)
-                if (vuoro === 10) {
-                    savePlayerStats()
-                    alert('voitit Pelin');
-                    const pelilauta = document.querySelector(
-                        `#child${flyTurn + 1}`);
-                    const pelilautabefore = document.querySelector(
-                        `#child${flyTurn}`);
-                    pelilautabefore.style.color = '';
-                    pelilauta.style.color = 'yellow';
-                }
+                fly(5)
             } else {
                 alert('Ei rahaa');
             }
