@@ -251,6 +251,7 @@ main {
     align-content: center;
     margin: 0;
     background-color: rgba(90, 92, 112, 0.49);
+    filter: drop-shadow(2px 2px 5px rgba(245, 245, 245, 0.9));
 }
 
 #pelilauta li {
@@ -310,7 +311,7 @@ main {
     transition: all 600ms;
 }
 
-.valinta:hover {
+.valinta:hover, .valinta1:hover {
     transform: scale(1.1);
     filter: drop-shadow(0rem 0rem 0px rgba(255, 255, 255, 0.58));
     background-color: rgba(84, 84, 84, 0.55);
