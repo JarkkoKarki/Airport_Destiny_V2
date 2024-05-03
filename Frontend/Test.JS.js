@@ -147,6 +147,7 @@ function gameLoop(data) {
                 document.querySelector('#player-modal1').classList.add('hide');
 
                 if (vuoro === 10) {
+                    savePlayerStats ()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -176,6 +177,7 @@ function gameLoop(data) {
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
+                    savePlayerStats ()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -205,6 +207,7 @@ function gameLoop(data) {
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
+                    savePlayerStats ()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -234,6 +237,7 @@ function gameLoop(data) {
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
+                    savePlayerStats ()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -264,6 +268,7 @@ function gameLoop(data) {
                 document.querySelector('#player-modal1').classList.add('hide');
                 if (vuoro === 10) {
                     alert('voitit Pelin');
+                    savePlayerStats ()
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
                     const pelilautabefore = document.querySelector(
@@ -293,6 +298,7 @@ function gameLoop(data) {
                 document.querySelector('#player-modal1').classList.add('hide');
                 addPadding(footerIcon, 10)
                 if (vuoro === 10) {
+                    savePlayerStats ()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -587,23 +593,24 @@ function easterEggMain(player) {
         easterEgg3(player);
     }
 }
-
-fetch('http://127.0.0.1:3001/player_stats', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(player),
-}).then(response => {
-    if (!response.ok) {
-        throw new Error('Failed to save player stats');
-    }
-    return response.json();
-}).then(data => {
-    console.log('Player stats saved:', data);
-}).catch(error => {
-    console.error('Error:', error);
-});
+function savePlayerStats () {
+    fetch('http://127.0.0.1:3001/player_stats', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(player),
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to save player stats');
+        }
+        return response.json();
+    }).then(data => {
+        console.log('Player stats saved:', data);
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+}
 
 
 async function leaderboardData() {
@@ -617,13 +624,13 @@ async function leaderboardData() {
 
         document.querySelector('.scoreList').innerHTML = '';
 
-        playerData.forEach(player => {
+        playerData.forEach((player, index) => {
             const td = document.createElement('td')
+                for ( let i = 0; i < playerData.length; i++) {
 
-            td.textContent = ` Player name: ${player.Player} Player score: ${player.score}`
-
-            document.querySelector('.scoreList').appendChild(td)
-        })
+                    td.textContent = ` ${index + 1} Player name: ${player.Player} Player score: ${player.score}`
+                    document.querySelector('.scoreList').appendChild(td)
+                } })
     } catch (error) {
         console.error('Error fetching data:', error);
         return null;
