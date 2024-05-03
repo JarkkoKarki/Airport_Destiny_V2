@@ -142,6 +142,7 @@ function gameLoop(data) {
         handleFlightAction(flyTurn);
         turnElement.innerText = 'vuoro ' + vuoro;
         if (vuoro === 10) {
+            player.score = 1000000 / player.co2_emissions
             savePlayerStats()
             alert('voitit Pelin');
             const pelilauta = document.querySelector(
