@@ -446,11 +446,11 @@ function kps(pelaajanValinta) {
         (pelaajanValinta === 'scissors' && tietokoneenValinta === 'paper')
     ) {
         result = 'You win!';
-        player.money * 2;
+        player.money = player.money * 2;
     } else {
-        result = 'Computer wins! if you have over 1000 raha you lose half of it :,(';
-        if (player.money > 1000) {
-            player.money * 0.5
+        result = 'Computer wins! - If you have over 1000 you lose half of your currency :,( -';
+        if (player.money >= 1000){
+            player.money = player.money * 0.5;
         }
     }
     const tulos = alert(`You chose ${pelaajanValinta}, computer chose ${tietokoneenValinta}. ${result}`);
