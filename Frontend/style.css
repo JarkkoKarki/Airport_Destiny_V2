@@ -199,6 +199,21 @@ main {
     z-index: 9999;
 }
 
+#player-modal2 {
+    align-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(1, 1, 1, 0.92);
+    filter: brightness(80%) blur(0.007rem);
+    background-position: center;
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+}
+
+
 #intro-heading1 {
     font-size: 2rem;
     color: #232323;

@@ -591,19 +591,40 @@ fetch('http://127.0.0.1:3001/player_stats', {
 
 
 async function leaderboardData() {
-    try {
-        const response = await fetch(`http://127.0.0.1:3001/leaderboard`);
-        if (!response.ok) {
-            Error('Could not fetch resource');
-        }
-        const data = await response.json();
-        console.log('jos luet tämän pelaajien scoret tuotu onnistuneesti');
-        return data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return null;
+  try {
+    const response = await fetch(`http://127.0.0.1:3001/leaderboard`);
+    if (!response.ok) {
+      Error('Could not fetch resource');
     }
+    const playerData = await response.json();
+    console.log('Pelaajien score:', playerData);
+
+    document.querySelector('.scoreList').innerHTML = '';
+
+    playerData.forEach(player => {
+        const td = document.createElement('td')
+
+      td.textContent = ` Player name: ${player.name} Player score: ${player.score}`
+
+      document.querySelector('.scoreList').appendChild(td)
+    })
+  }
+
+  catch (error) {
+    console.error('Error fetching data:', error);
+    return null;
+
+  }
 }
 
-leaderboardData()
+document.querySelector('#leaderboardInput').addEventListener('click', async function(evt) {
+  evt.preventDefault();
+  await leaderboardData();
+  document.querySelector('#player-modal2').classList.remove('hide')
+});
+
+document.querySelector('#close1').addEventListener('click', function(evt) {
+  evt.preventDefault();
+  document.querySelector('#player-modal2').classList.add('hide');
+})
 
