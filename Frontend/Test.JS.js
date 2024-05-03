@@ -39,7 +39,6 @@ function addPadding(footerIcon, number) {
     if (newLeft > targetPosition) {
         newLeft = targetPosition;
     }
-    alert(newLeft)
     footerIcon.style.left = `${newLeft + 200}px`;
     if (newLeft >= targetPosition) {
         console.log('Footer icon has reached 80% of the screen width.');
@@ -145,9 +144,9 @@ function gameLoop(data) {
                 handleFlightAction(flyTurn);
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
-
+                addPadding(footerIcon, 10)
                 if (vuoro === 10) {
-                    savePlayerStats ()
+                    savePlayerStats()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -176,8 +175,9 @@ function gameLoop(data) {
                 handleFlightAction(flyTurn);
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
+                addPadding(footerIcon, 10)
                 if (vuoro === 10) {
-                    savePlayerStats ()
+                    savePlayerStats()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -206,8 +206,9 @@ function gameLoop(data) {
                 handleFlightAction(flyTurn);
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
+                addPadding(footerIcon, 10)
                 if (vuoro === 10) {
-                    savePlayerStats ()
+                    savePlayerStats()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -236,8 +237,9 @@ function gameLoop(data) {
                 handleFlightAction(flyTurn);
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
+                addPadding(footerIcon, 10)
                 if (vuoro === 10) {
-                    savePlayerStats ()
+                    savePlayerStats()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -266,9 +268,10 @@ function gameLoop(data) {
                 handleFlightAction(flyTurn);
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
+                addPadding(footerIcon, 10)
                 if (vuoro === 10) {
                     alert('voitit Pelin');
-                    savePlayerStats ()
+                    savePlayerStats()
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
                     const pelilautabefore = document.querySelector(
@@ -298,7 +301,7 @@ function gameLoop(data) {
                 document.querySelector('#player-modal1').classList.add('hide');
                 addPadding(footerIcon, 10)
                 if (vuoro === 10) {
-                    savePlayerStats ()
+                    savePlayerStats()
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
                         `#child${flyTurn + 1}`);
@@ -593,7 +596,8 @@ function easterEggMain(player) {
         easterEgg3(player);
     }
 }
-function savePlayerStats () {
+
+function savePlayerStats() {
     fetch('http://127.0.0.1:3001/player_stats', {
         method: 'POST',
         headers: {
@@ -626,11 +630,12 @@ async function leaderboardData() {
 
         playerData.forEach((player, index) => {
             const td = document.createElement('td')
-                for ( let i = 0; i < playerData.length; i++) {
+            for (let i = 0; i < playerData.length; i++) {
 
-                    td.textContent = ` ${index + 1} Player name: ${player.Player} Player score: ${player.score}`
-                    document.querySelector('.scoreList').appendChild(td)
-                } })
+                td.textContent = ` ${index + 1} Player name: ${player.Player} Player score: ${player.score}`
+                document.querySelector('.scoreList').appendChild(td)
+            }
+        })
     } catch (error) {
         console.error('Error fetching data:', error);
         return null;
