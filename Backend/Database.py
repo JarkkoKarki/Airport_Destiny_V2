@@ -3,6 +3,7 @@ import random
 import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from airplains import airplain_data
 
 
 
@@ -134,6 +135,12 @@ def save_player_stats():
 def send_player_leaderboard():
     player_stats_data = player_stats(connection)
     json_data = json.dumps(player_stats_data, indent=4)
+    return json_data
+
+@app.route('/airplanes')
+def send_airplane_data():
+    data = airplain_data()
+    json_data = json.dumps(data, indent=4)
     return json_data
 
 
