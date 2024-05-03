@@ -126,6 +126,7 @@ function gameLoop(data) {
     }
 
     function fly(flight) {
+        addPadding(footerIcon, 10)
         player.money -= planes[flight].cost
         alert(`Lento ${flight + 1} ostettu`)
         flyTurn += 1
