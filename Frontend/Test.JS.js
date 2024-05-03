@@ -444,11 +444,15 @@ function kps(pelaajanValinta) {
         (pelaajanValinta === 'scissors' && tietokoneenValinta === 'paper')
     ) {
         result = 'You win!';
+        player.money * 2;
     } else {
-        result = 'Computer wins!';
+        result = 'Computer wins! if you have over 1000 raha you lose half of it :,(';
+        if (player.money > 1000){
+            player.money * 0.5
+        }
     }
-    document.getElementById(
-        'result').innerText = `You chose ${pelaajanValinta}, computer chose ${tietokoneenValinta}. ${result}`;
+    const tulos = alert(`You chose ${pelaajanValinta}, computer chose ${tietokoneenValinta}. ${result}`);
+    console.log("lopputulos" + tulos)
 }
 
 function easterEgg1(player, choice) {
