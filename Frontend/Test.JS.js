@@ -620,7 +620,7 @@ async function leaderboardData() {
         playerData.forEach(player => {
             const td = document.createElement('td')
 
-            td.textContent = ` Player name: ${player.name} Player score: ${player.score}`
+            td.textContent = ` Player name: ${player.Player} Player score: ${player.score}`
 
             document.querySelector('.scoreList').appendChild(td)
         })
