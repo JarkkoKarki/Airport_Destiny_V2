@@ -23,12 +23,27 @@ const musicElement = document.getElementById('music').value;
 const audio = document.getElementById('music')
 const blueIcon = L.divIcon({className: 'blue-icon'});
 const greenIcon = L.divIcon({className: 'green-icon'});
+const footerIcon = document.getElementById('footer-icon')
 
 // GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
 function Airplane(name, cost, emissions) {
     this.name = name;
     this.cost = cost;
     this.emissions = emissions;
+}
+
+function addPadding(footerIcon, number) {
+    const targetPosition = window.innerWidth * 0.8;
+    const currentLeft = parseFloat(window.getComputedStyle(footerIcon).left) || 0;
+    let newLeft = currentLeft + (number * parseFloat(getComputedStyle(document.documentElement).fontSize));
+    if (newLeft > targetPosition) {
+        newLeft = targetPosition;
+    }
+    alert(newLeft)
+    footerIcon.style.left = `${newLeft + 200}px`;
+    if (newLeft >= targetPosition) {
+        console.log('Footer icon has reached 80% of the screen width.');
+    }
 }
 
 function initializePlanes(airplaneConstructor) {
@@ -130,6 +145,7 @@ function gameLoop(data) {
                 handleFlightAction(flyTurn);
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
+
                 if (vuoro === 10) {
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
@@ -275,6 +291,7 @@ function gameLoop(data) {
                 handleFlightAction(flyTurn);
                 turnElement.innerText = 'vuoro ' + vuoro;
                 document.querySelector('#player-modal1').classList.add('hide');
+                addPadding(footerIcon, 10)
                 if (vuoro === 10) {
                     alert('voitit Pelin');
                     const pelilauta = document.querySelector(
@@ -590,40 +607,38 @@ fetch('http://127.0.0.1:3001/player_stats', {
 
 
 async function leaderboardData() {
-  try {
-    const response = await fetch(`http://127.0.0.1:3001/leaderboard`);
-    if (!response.ok) {
-      Error('Could not fetch resource');
+    try {
+        const response = await fetch(`http://127.0.0.1:3001/leaderboard`);
+        if (!response.ok) {
+            Error('Could not fetch resource');
+        }
+        const playerData = await response.json();
+        console.log('Pelaajien score:', playerData);
+
+        document.querySelector('.scoreList').innerHTML = '';
+
+        playerData.forEach(player => {
+            const td = document.createElement('td')
+
+            td.textContent = ` Player name: ${player.name} Player score: ${player.score}`
+
+            document.querySelector('.scoreList').appendChild(td)
+        })
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
+
     }
-    const playerData = await response.json();
-    console.log('Pelaajien score:', playerData);
-
-    document.querySelector('.scoreList').innerHTML = '';
-
-    playerData.forEach(player => {
-        const td = document.createElement('td')
-
-      td.textContent = ` Player name: ${player.name} Player score: ${player.score}`
-
-      document.querySelector('.scoreList').appendChild(td)
-    })
-  }
-
-  catch (error) {
-    console.error('Error fetching data:', error);
-    return null;
-
-  }
 }
 
-document.querySelector('#leaderboardInput').addEventListener('click', async function(evt) {
-  evt.preventDefault();
-  await leaderboardData();
-  document.querySelector('#player-modal2').classList.remove('hide')
+document.querySelector('#leaderboardInput').addEventListener('click', async function (evt) {
+    evt.preventDefault();
+    await leaderboardData();
+    document.querySelector('#player-modal2').classList.remove('hide')
 });
 
-document.querySelector('#close1').addEventListener('click', function(evt) {
-  evt.preventDefault();
-  document.querySelector('#player-modal2').classList.add('hide');
+document.querySelector('#close1').addEventListener('click', function (evt) {
+    evt.preventDefault();
+    document.querySelector('#player-modal2').classList.add('hide');
 })
 

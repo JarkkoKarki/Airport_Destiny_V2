@@ -257,9 +257,11 @@ main {
 }
 
 #footer-icon {
+    position: relative;
     font-size: 3rem;
     margin: 0 0 3rem 3rem;
     float: left;
+    left: 0;
 }
 
 .white-line {
