@@ -22,13 +22,13 @@ const player = {
 let dist
 
 const musicElement = document.getElementById('music').value;
-const audio = document.getElementById('music')
+const audio = document.getElementById('music');
 const blueIcon = L.divIcon({className: 'blue-icon'});
 const greenIcon = L.divIcon({className: 'green-icon'});
-const footerIcon = document.getElementById('footer-icon')
+const footerIcon = document.getElementById('footer-icon');
+const deleteButton = document.getElementById('delete-sql');
 
 // GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
-
 
 function addPadding(footerIcon, number) {
     const targetPosition = window.innerWidth * 0.8;
@@ -52,22 +52,44 @@ async function gameLoop(data) {
     const planes = await fetchAirplanes()
     console.log(planes)
 
-    // Other code for game loop setup
-    // Function to handle flight actions
     function handleFlightAction(flyTurn) {
-        // Get the latitude and longitude of the current airport
         const latitude = data[flyTurn]['latitude_deg'];
         const longitude = data[flyTurn]['longitude_deg'];
         map.closePopup();
-        // Use map.flyTo to fly the map to the current airport location
         console.log(latitude, longitude);
         marker = L.marker([latitude, longitude]).addTo(map);
         marker.bindPopup(`${flyTurn + 1}. Airport: ${data[flyTurn]['name']}`).openPopup();
         map.flyTo([latitude, longitude], 5, {
-            duration: 2, // Duration of the fly animation in seconds
-            easeLinearity: 0.25, // Ease of movement (0 = no easing, 1 = linear)
+            duration: 2,
+            easeLinearity: 0.25,
         });
     }
+
+    deleteButton.addEventListener('click', function () {
+        const userConfirmed = confirm("Hyväksyminen poistaa pelaajatiedot lopullisesti. Haluatko jatkaa?");
+
+        if (userConfirmed) {
+            fetch('http://127.0.0.1:3001/deletedata', {
+                method: 'DELETE'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        console.log(data.message);
+                        alert('Data Deleted successfully');
+                    } else if (data.error) {
+                        console.log(data.error);
+                        alert('Failed to delete data: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.log('Error:', error);
+                    alert('Error while deleting data');
+                });
+        } else {
+            alert("Tietoja ei poistettu");
+        }
+    });
 
     airportdata(data, flyTurn);
     let vuoro = 1;
@@ -201,7 +223,6 @@ async function gameLoop(data) {
     }
 
     document.querySelector('.valinta1').addEventListener('click', EmissionAction);
-    // Add event listener for the player's action button
     document.querySelector('.valinta').addEventListener('click', handlePlayerAction);
 
     // Main game loop
@@ -265,8 +286,7 @@ async function airportdata(data, flyTurn) {
     airportCountryElement.textContent = data[flyTurn]['country'];
     airportIdentElement.textContent = data[flyTurn]['ident'];
     airportCordElement.innerHTML = `${data[flyTurn]['longitude_deg'].toFixed(
-        2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[flyTurn]['latitude_deg'].toFixed(
-        2)}`;
+        2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[flyTurn]['latitude_deg'].toFixed(2)}`;
     console.log(flyTurn);
     if (flyTurn < 9) {
         const airportNextNameElement = document.getElementById('nairport-name');
@@ -278,45 +298,45 @@ async function airportdata(data, flyTurn) {
         airportNextNameElement.textContent = data[flyTurn + 1]['name'];
         airportNextCountryElement.textContent = data[flyTurn + 1]['country'];
         airportNextIdentElement.textContent = data[flyTurn + 1]['ident'];
-        airportNextCordElement.innerHTML = `${data[flyTurn +
-        1]['longitude_deg'].toFixed(
-            2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[flyTurn +
-        1]['latitude_deg'].toFixed(2)}`;
+        airportNextCordElement.innerHTML = `${data[flyTurn + 1]['longitude_deg'].toFixed(
+            2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[flyTurn + 1]['latitude_deg'].toFixed(2)}`;
+        let lat2 = data[flyTurn + 1]['latitude_deg'];
+        let lat1 = data[flyTurn]['latitude_deg'];
+        let lon1 = data[flyTurn]['longitude_deg'];
+        let lon2 = data[flyTurn + 1]['longitude_deg'];
+        let R = 6371; // km
+        let dLat = (lat2 - lat1) * (Math.PI / 180);
+        let dLon = (lon2 - lon1) * (Math.PI / 180);
+        lat1 = (lat1) * (Math.PI / 180);
+        lat2 = (lat2) * (Math.PI / 180);
+        let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        dist = R * c;
+        const airportNextDistElement = document.getElementById('nairport-distance');
+        airportNextDistElement.textContent = dist.toFixed(2) + ' km';
     } else if (flyTurn === 9) {
+        const lastElement = document.getElementById('last')
+        lastElement.classList.add('hide')
         const airportNextNameElement = document.getElementById('nairport-name');
         const airportNextCountryElement = document.getElementById(
             'nairport-country');
         const airportNextIdentElement = document.getElementById(
             'nairport-ident');
         const airportNextCordElement = document.getElementById('nairport-cord');
-        airportNextNameElement.textContent = 'goal';
-        airportNextCountryElement.textContent = 'goal';
-        airportNextIdentElement.textContent = 'goal';
-        airportNextCordElement.innerHTML = `goal`;
+        const airportNextDistElement = document.getElementById('nairport-distance');
+        airportNextDistElement.textContent = 'Goal';
+        airportNextNameElement.textContent = 'Goal';
+        airportNextCountryElement.textContent = 'Goal';
+        airportNextIdentElement.textContent = 'Goal';
+        airportNextCordElement.innerHTML = `Goal`;
     }
-    let lat2 = data[flyTurn + 1]['latitude_deg'];
-    let lat1 = data[flyTurn]['latitude_deg'];
-    let lon1 = data[flyTurn]['longitude_deg'];
-    let lon2 = data[flyTurn + 1]['longitude_deg'];
-    let R = 6371; // km
-    let dLat = (lat2 - lat1) * (Math.PI / 180);
-    let dLon = (lon2 - lon1) * (Math.PI / 180);
-    lat1 = (lat1) * (Math.PI / 180);
-    lat2 = (lat2) * (Math.PI / 180);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    dist = R * c;
-    const airportNextDistElement = document.getElementById('nairport-distance');
-    airportNextDistElement.textContent = dist.toFixed(2) + ' km';
     const pelilautaElement = document.getElementById('pelilauta');
     let htmlElement = '';
     for (let i = 0; i < data.length; i++) {
         const countryData = await fechCountries(data[i]['country']);
         const countryCode = countryData;
-        // Fetch flag URL using country code
         const flagURL = await fechFlagImg(countryCode);
-        // Create HTML list items with airport name and flag image
         htmlElement += `<li id="child${i + 1}">${i +
         1}. ${data[i]['name']}<img class="flags" src="${flagURL}" alt="flag"></li>`;
     }
@@ -326,10 +346,8 @@ async function airportdata(data, flyTurn) {
     const pelilauta = document.querySelector(`#child${flyTurn + 1}`);
 
     if (pelilauta) {
-        // If pelilauta is found, set the color to blue
         pelilauta.style.color = 'blue';
     } else {
-        // Handle the case where the element is not found
         console.log(`Element with ID #child${flyTurn + 1} not found.`);
     }
 }
@@ -424,19 +442,13 @@ async function initializeMap() {
         console.log('No data available or data is not an array');
         return;
     }
-    // Create a layer group for airport markers
     const airportMarkers = L.layerGroup().addTo(map);
-    // Limit iteration to the first 10 airports or the length of data, whichever is smaller
     const maxAirports = Math.min(data.length, 10);
-    // Iterate through the first 10 airports in the data array
     for (let i = 0; i < maxAirports; i++) {
         const airport = data[i];
         fechCountries(data[i]['country']);
-        // Create a marker for each airport using latitude and longitude
         marker = L.marker([airport.latitude_deg, airport.longitude_deg]).addTo(map);
-        // Add popup information to the marker with airport's name
         marker.bindPopup(`${i + 1}. Airport ${airport.name}`);
-        // Add the marker to the airport markers layer group
         airportMarkers.addLayer(marker);
         if (i === 0) {
             map.flyTo([airport.latitude_deg, airport.longitude_deg], 5);
@@ -579,3 +591,10 @@ document.querySelector('#leaderBoardClose').addEventListener('click', function (
     document.querySelector('#player-modal2').classList.add('hide');
 })
 
+document.querySelector('#refresh').addEventListener('click', function (evt) {
+    evt.preventDefault()
+    document.querySelector('#player-modal2').classList.add('hide');
+    leaderboardData()
+    alert("Stats refreshed")
+    document.querySelector('#player-modal2').classList.remove('hide');
+})
