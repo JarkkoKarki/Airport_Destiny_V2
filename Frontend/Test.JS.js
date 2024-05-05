@@ -133,6 +133,7 @@ async function gameLoop(data) {
             console.log(`Player Money : ${player.money} emissions: ${player.co2_emissions} SCORE: ${player.score}, name ${player.name}, turn ${player.turn}, location ${player.location}`)
             savePlayerStats()
             alert('voitit Pelin');
+            leaderboardData()
             document.querySelector('#player-modal1').classList.add('hide')
             document.querySelector('#player-modal2').classList.remove('hide')
             const pelilauta = document.querySelector(
@@ -542,13 +543,24 @@ async function leaderboardData() {
         document.querySelector('.scoreList').innerHTML = '';
 
         playerData.forEach((player, index) => {
-            const td = document.createElement('td')
-            for (let i = 0; i < playerData.length; i++) {
+                const tr = document.createElement('tr');
+                const playerNameTd = document.createElement('td');
 
-                td.textContent = ` ${index + 1} Player name: ${player.Player} Player score: ${player.score}`
-                document.querySelector('.scoreList').appendChild(td)
-            }
-        })
+                playerNameTd.textContent = `${index +1} Player name -- ${player.Player}`;
+                playerNameTd.style.background = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)';
+                playerNameTd.style.backgroundClip = 'text';
+                playerNameTd.style.color = 'transparent';
+
+                const playerScoreTd = document.createElement('td');
+                playerScoreTd.textContent = `Player score -- ${player.score}`;
+                playerScoreTd.style.background = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)';
+                playerScoreTd.style.backgroundClip = 'text';
+                playerScoreTd.style.color = 'transparent';
+                document.querySelector('.scoreList').appendChild(playerNameTd);
+                document.querySelector('.scoreList').appendChild(playerScoreTd);
+                document.querySelector('.scoreList').appendChild(tr);
+
+         });
     } catch (error) {
         console.error('Error fetching data:', error);
         return null;
@@ -562,7 +574,7 @@ document.querySelector('#leaderboardInput').addEventListener('click', async func
     document.querySelector('#player-modal2').classList.remove('hide')
 });
 
-document.querySelector('#close1').addEventListener('click', function (evt) {
+document.querySelector('#leaderBoardClose').addEventListener('click', function (evt) {
     evt.preventDefault();
     document.querySelector('#player-modal2').classList.add('hide');
 })

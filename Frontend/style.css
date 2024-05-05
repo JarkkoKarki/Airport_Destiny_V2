@@ -237,6 +237,41 @@ main {
     z-index: 9999;
 }
 
+.scoreList td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 1.5rem;
+
+}
+
+.scoreList {
+    background-color: rgba(242, 242, 242, 0.86);
+    margin: auto;
+}
+
+.scoreList:nth-child(even) {
+    background-color: #525b65;
+}
+
+#leaderBoardClose {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    background-color: #525b65;
+    border-radius: 5rem;
+    text-align: center;
+    transition: all 300ms;
+}
+
+#leaderBoardClose:hover {
+    transform: scale(1.1);
+}
+
+.back1 h2 {
+    font-size: 3rem;
+}
+
 
 #intro-heading1 {
     font-size: 2rem;
