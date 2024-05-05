@@ -18,7 +18,7 @@ def airplain_data():
         airplane_dict = {
             'name': airplane.name,
             'cost': airplane.cost,
-            'co2_multiplier': airplane.co2_multiplier
+            'emissions': airplane.co2_multiplier
         }
         airplane_data.append(airplane_dict)
     return airplane_data

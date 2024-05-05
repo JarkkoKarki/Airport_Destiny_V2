@@ -28,11 +28,7 @@ const greenIcon = L.divIcon({className: 'green-icon'});
 const footerIcon = document.getElementById('footer-icon')
 
 // GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
-function Airplane(name, cost, emissions) {
-    this.name = name;
-    this.cost = cost;
-    this.emissions = emissions;
-}
+
 
 function addPadding(footerIcon, number) {
     const targetPosition = window.innerWidth * 0.8;
@@ -47,24 +43,14 @@ function addPadding(footerIcon, number) {
     }
 }
 
-function initializePlanes(airplaneConstructor) {
-    const plane0 = new airplaneConstructor('Sähkölentokone', 6000, 0.25);
-    const plane1 = new airplaneConstructor('Hybridilentokone', 5000, 0.30);
-    const plane2 = new airplaneConstructor('Sähköliitokone', 4000, 0.35);
-    const plane3 = new airplaneConstructor('Biodiesel Jet', 3000, 0.40);
-    const plane4 = new airplaneConstructor('Sähköhelikopteri', 2000, 0.45);
-    const plane5 = new airplaneConstructor('Aurinkovoimaraketti', 1000, 0.50);
-
-    return [plane0, plane1, plane2, plane3, plane4, plane5];
-}
-const planes = initializePlanes(Airplane);
-
 // GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
 let flyTurn = 0;
 
 // GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
-function gameLoop(data) {
+async function gameLoop(data) {
     let flyTurn = 0;
+    const planes = await fetchAirplanes()
+    console.log(planes)
 
     // Other code for game loop setup
     // Function to handle flight actions
@@ -82,7 +68,6 @@ function gameLoop(data) {
             easeLinearity: 0.25, // Ease of movement (0 = no easing, 1 = linear)
         });
     }
-
 
     airportdata(data, flyTurn);
     let vuoro = 1;
@@ -129,6 +114,7 @@ function gameLoop(data) {
         addPadding(footerIcon, 10)
         player.money -= planes[flight].cost
         alert(`Lento ${flight + 1} ostettu`)
+        player.turn += 1
         flyTurn += 1
         airportdata(data, flyTurn)
         const emissions = planes[flight]['emissions'] * dist
@@ -137,14 +123,18 @@ function gameLoop(data) {
         lento = true
         document.querySelector('#consumed').textContent = player.co2_emissions.toFixed(2);
         document.querySelector('#budget').textContent = player.money;
+        document.querySelector('#player-modal1').classList.add('hide')
         vuoro++;
         diceRolled = false;
         handleFlightAction(flyTurn);
         turnElement.innerText = 'vuoro ' + vuoro;
         if (vuoro === 10) {
             player.score = 1000000 / player.co2_emissions
+            console.log(`Player Money : ${player.money} emissions: ${player.co2_emissions} SCORE: ${player.score}, name ${player.name}, turn ${player.turn}, location ${player.location}`)
             savePlayerStats()
             alert('voitit Pelin');
+            document.querySelector('#player-modal1').classList.add('hide')
+            document.querySelector('#player-modal2').classList.remove('hide')
             const pelilauta = document.querySelector(
                 `#child${flyTurn + 1}`);
             const pelilautabefore = document.querySelector(
@@ -192,6 +182,7 @@ function gameLoop(data) {
         });
         document.querySelector('#lento5').addEventListener('click', function (event) {
             event.preventDefault();
+            console.log(planes[4])
             if (player.money >= planes[4].cost) {
                 fly(4)
             } else {
@@ -276,7 +267,7 @@ async function airportdata(data, flyTurn) {
         2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[flyTurn]['latitude_deg'].toFixed(
         2)}`;
     console.log(flyTurn);
-    if (!flyTurn < 9) {
+    if (flyTurn < 9) {
         const airportNextNameElement = document.getElementById('nairport-name');
         const airportNextCountryElement = document.getElementById(
             'nairport-country');
@@ -400,6 +391,32 @@ async function fetchData() {
     }
 }
 
+async function fetchAirplanes() {
+    try {
+        const response = await fetch(`http://127.0.0.1:3001/airplanes`);
+        if (!response.ok) {
+            Error('Could not fetch resource');
+        }
+        const airplanes = await response.json();
+        console.log('Fetched data:', data);
+        return airplanes;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
+    }
+}
+
+async function Airplanes() {
+    try {
+        const airplanes = await fetchAirplanes();
+        // Return the airplanes array
+        return airplanes;
+    } catch (error) {
+        console.error('Error fetching airplanes:', error);
+        return null;
+    }
+}
+
 async function initializeMap() {
     const data = await fetchData();
     if (!data || !Array.isArray(data)) {
@@ -451,7 +468,7 @@ function kps(pelaajanValinta) {
         player.money = player.money * 2;
     } else {
         result = 'Computer wins! - If you have over 1000 you lose half of your currency :,( -';
-        if (player.money >= 1000){
+        if (player.money >= 1000) {
             player.money = player.money * 0.5;
         }
     }
