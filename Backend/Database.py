@@ -6,7 +6,6 @@ from flask_cors import CORS
 from airplains import airplain_data
 
 
-
 def yhteys():
     connection = mysql.connector.connect(
         host="127.0.0.1",
@@ -77,6 +76,7 @@ def aloitus():
     json_data = json.dumps(random_airports_data, indent=4)
     return json_data
 
+
 def create_table(connection):
     create_table_query = """CREATE TABLE IF NOT EXISTS player_stats (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -90,6 +90,12 @@ def create_table(connection):
     cursor = connection.cursor()
     cursor.execute(create_table_query)
     connection.commit()
+
+
+def delete_data(connection):
+    sql = "DELETE from player_stats"
+    cursor = connection.cursor()
+    cursor.execute(sql)
 
 
 @app.route('/player_stats', methods=['POST'])
@@ -131,17 +137,28 @@ def save_player_stats():
     else:
         return jsonify({'error': 'Player name not provided'}), 400
 
+
 @app.route('/leaderboard')
 def send_player_leaderboard():
     player_stats_data = player_stats(connection)
     json_data = json.dumps(player_stats_data, indent=4)
     return json_data
 
+
 @app.route('/airplanes')
 def send_airplane_data():
     data = airplain_data()
     json_data = json.dumps(data, indent=4)
     return json_data
+
+
+@app.route('/deletedata', methods=['DELETE'])
+def delete_stats():
+    try:
+        delete_data(connection)
+        return jsonify({'message': 'Data deleted successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': 'Failed to delete data', 'message': str(e)}), 500
 
 
 if __name__ == '__main__':
