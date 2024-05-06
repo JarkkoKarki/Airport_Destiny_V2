@@ -23,8 +23,6 @@ let dist
 
 const musicElement = document.getElementById('music').value;
 const audio = document.getElementById('music');
-const blueIcon = L.divIcon({className: 'blue-icon'});
-const greenIcon = L.divIcon({className: 'green-icon'});
 const footerIcon = document.getElementById('footer-icon');
 const deleteButton = document.getElementById('delete-sql');
 const newGame = document.getElementById('new-game');
@@ -455,7 +453,6 @@ async function initializeMap() {
         if (i === 0) {
             map.flyTo([airport.latitude_deg, airport.longitude_deg], 5);
             marker.openPopup();
-            marker.setIcon(blueIcon);
         }
     }
     return data;
