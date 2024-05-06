@@ -24,10 +24,13 @@
         <nav>
             <ul class="flex-wrap space-evenly">
                 <li>
-                    <a class="button button-white" href="about.html" target="_blank">About</a>
+                    <a class="button button-white" href="about.html" target="_blank">Tietoja</a>
                 </li>
                 <li>
-                    <a class="button button-white" id="leaderboardInput" type="submit" >Leaderboard</a>
+                    <a id="new-game" class="button button-white hide" href="page.html">Uusi Peli</a>
+                </li>
+                <li>
+                    <a class="button button-white" id="leaderboardInput" type="submit" >Tulokset</a>
                 </li>
             </ul>
         </nav>
@@ -35,30 +38,29 @@
 
     <main id="main" class="flex-wrap">
         <div id="map">
-            <!-- <img class="responsive-img" src="img/finland.svg" alt="map of finland"> -->
         </div>
 
         <div class="boxes">
             <section class="box">
                 <header>
-                    <h2>Game Status</h2>
+                    <h2>Peli tiedot</h2>
                 </header>
                 <table>
                     <tr>
                         <td colspan="2">
-                            <h3 id="player-name">Player Name</h3>
+                            <h3 id="player-name">Nimi</h3>
                             <p id="vuorot"></p>
                         </td>
                     </tr>
                     <tr>
-                        <td><img id="smoke"> CO2 Consumed: <span id="consumed">0</span>kg</td>
-                        <td><img id="money"> Money: <span id="budget">1000</span>e</td>
+                        <td><img id="smoke"> CO2 Kulutettu: <span id="consumed">0</span>kg</td>
+                        <td><img id="money"> Raha: <span id="budget">1000</span>e</td>
                     </tr>
                 </table>
             </section>
             <section class="box">
                 <header>
-                    <h2>Airport name</h2>
+                    <h2>Lentokenttä</h2>
                     <input class="valinta" type="submit" value="Heitä noppaa">
                     <input class="valinta1" type="submit" value="Kompensoi päästöjä">
                     <img id="kuva">
@@ -67,30 +69,30 @@
                 </header>
                 <table class="airport-col">
                     <tr>
-                        <td>Country</td>
-                        <td>Ident</td>
-                        <td>Longitude&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Latitude</td>
+                        <td>Maa</td>
+                        <td>Tunnus</td>
+                        <td>Pituusaste&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Leveysaste</td>
                     </tr>
                     <tr>
-                        <td id="airport-country">10°C</td>
-                        <td id="airport-ident">Cloudy</td>
-                        <td id="airport-cord">40m/s</td>
+                        <td id="airport-country"></td>
+                        <td id="airport-ident"></td>
+                        <td id="airport-cord"></td>
                     </tr>
                 </table>
                 <audio id="music" autoplay src="../music/musa.mp3"></audio>
             </section>
-            <section class="box">
+            <section id="last" class="box">
                 <header>
-                    <h2>Next Airport</h2>
+                    <h2>Seuraava lentokenttä</h2>
                     <input class="valinta" id="flight" type="submit" value="Lennä">
                     <p id="nairport-name"></p>
                 </header>
                 <table class="airport-col">
                     <tr>
-                        <td>Country</td>
-                        <td>Ident</td>
-                        <td>Longitude&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Latitude</td>
-                        <td>Distance</td>
+                        <td>Maa</td>
+                        <td>Tunnus</td>
+                        <td>Pituusaste&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Leveysaste</td>
+                        <td>Etäisyys</td>
                     </tr>
                     <tr>
                         <td id="nairport-country"></td>

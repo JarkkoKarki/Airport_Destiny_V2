@@ -27,6 +27,7 @@ const blueIcon = L.divIcon({className: 'blue-icon'});
 const greenIcon = L.divIcon({className: 'green-icon'});
 const footerIcon = document.getElementById('footer-icon');
 const deleteButton = document.getElementById('delete-sql');
+const newGame = document.getElementById('new-game');
 
 // GAME LOOP KUTSUTAAN PELIN ALUSTUKSEN YHTEYDESSÄ
 
@@ -158,6 +159,7 @@ async function gameLoop(data) {
             leaderboardData()
             document.querySelector('#player-modal1').classList.add('hide')
             document.querySelector('#player-modal2').classList.remove('hide')
+            newGame.classList.remove('hide')
             const pelilauta = document.querySelector(
                 `#child${flyTurn + 1}`);
             const pelilautabefore = document.querySelector(
