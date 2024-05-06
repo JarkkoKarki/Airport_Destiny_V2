@@ -100,10 +100,7 @@ def delete_data(connection):
 
 @app.route('/player_stats', methods=['POST'])
 def save_player_stats():
-    # Luo yhteys tietokantaan funktion sisällä
     connection = yhteys()
-
-    # Lue JSON-data requestista
     data = request.json
     name = data.get('name')
     money = data.get('money')
@@ -114,7 +111,6 @@ def save_player_stats():
 
     # Tarkista, onko 'name' annettu
     if name is not None:
-        # Varmista, että tietokantayhteys on käytettävissä
         if connection:
             create_table(connection)  # Luo taulukko tarvittaessa
 
@@ -157,8 +153,8 @@ def delete_stats():
     try:
         delete_data(connection)
         return jsonify({'message': 'Data deleted successfully'}), 200
-    except Exception as e:
-        return jsonify({'error': 'Failed to delete data', 'message': str(e)}), 500
+    except Exception:
+        return jsonify({'error': 'Failed to delete data', 'message': str(Exception)}), 500
 
 
 if __name__ == '__main__':
