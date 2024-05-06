@@ -269,6 +269,7 @@ main {
     background-color: rgba(175, 165, 165, 0.46);
     filter: drop-shadow(1px 1px 5px white) drop-shadow(3px 3px 10px rgba(110, 110, 110, 0.55));
     width: 15rem;
+    height: 2rem;
     border-radius: 0.5rem;
     text-align: center;
     padding: 1.7rem 0.8rem 0.8rem;
@@ -278,6 +279,7 @@ main {
 #player-modal2 input {
     font-size: 1.5rem;
     border-radius: 2rem;
+    height: 4rem;
 }
 
 h2 {
