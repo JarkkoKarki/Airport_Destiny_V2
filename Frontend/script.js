@@ -38,7 +38,7 @@ function addPadding(footerIcon, number) {
     }
     footerIcon.style.left = `${newLeft + 200}px`;
     if (newLeft >= targetPosition) {
-        console.log('Footer icon has reached 80% of the screen width.');
+        console.log('80% Kuva mennyt 80%');
     }
 }
 
@@ -49,13 +49,11 @@ let flyTurn = 0;
 async function gameLoop(data) {
     let flyTurn = 0;
     const planes = await fetchAirplanes()
-    console.log(planes)
 
     function handleFlightAction(flyTurn) {
         const latitude = data[flyTurn]['latitude_deg'];
         const longitude = data[flyTurn]['longitude_deg'];
         map.closePopup();
-        console.log(latitude, longitude);
         marker = L.marker([latitude, longitude]).addTo(map);
         marker.bindPopup(`${flyTurn + 1}. Airport: ${data[flyTurn]['name']}`).openPopup();
         map.flyTo([latitude, longitude], 5, {
@@ -105,7 +103,6 @@ async function gameLoop(data) {
             player.money += roll;
             document.querySelector('#budget').textContent = player.money;
             alert(`Sait tämän verran rahulia ${roll}e`);
-            console.log(player);
             diceRolled = true;
         } else {
             alert('Et voi enää heittää noppaa tällä vuorolla.');
@@ -151,7 +148,6 @@ async function gameLoop(data) {
         turnElement.innerText = 'vuoro ' + vuoro;
         if (vuoro === 10) {
             player.score = 1000000 / player.co2_emissions
-            console.log(`Player Money : ${player.money} emissions: ${player.co2_emissions} SCORE: ${player.score}, name ${player.name}, turn ${player.turn}, location ${player.location}`)
             savePlayerStats()
             alert('voitit Pelin');
             leaderboardData()
@@ -170,9 +166,7 @@ async function gameLoop(data) {
 
     if (!lento) {
         document.querySelector('#lento1').addEventListener('click', function (event) {
-            console.log(flyTurn);
             event.preventDefault();
-            console.log(planes[0].cost);
             if (player.money >= planes[0].cost) {
                 fly(0)
             } else {
@@ -205,7 +199,6 @@ async function gameLoop(data) {
         });
         document.querySelector('#lento5').addEventListener('click', function (event) {
             event.preventDefault();
-            console.log(planes[4])
             if (player.money >= planes[4].cost) {
                 fly(4)
             } else {
@@ -224,15 +217,6 @@ async function gameLoop(data) {
 
     document.querySelector('.valinta1').addEventListener('click', EmissionAction);
     document.querySelector('.valinta').addEventListener('click', handlePlayerAction);
-
-    // Main game loop
-    function playGame() {
-        while (vuoro < maxVuoro) {
-            console.log(vuoro + 'VUOROROO');
-            lento = true;
-            vuoro++;
-        }
-    }
 }
 
 // PICTURE FROM COUNTRY
@@ -262,7 +246,6 @@ async function pictures(data, flyTurn) {
                 `Failed to search photos. Status code: ${response.status}`);
         }
     }).then(searchResults => {
-        console.log('Search results:', searchResults);
         if (searchResults.photos && searchResults.photos.length > 0) {
             const firstPhoto = searchResults.photos[0];
             const photoUrl = firstPhoto.src.original;
@@ -281,13 +264,11 @@ async function airportdata(data, flyTurn) {
     const airportCountryElement = document.getElementById('airport-country');
     const airportIdentElement = document.getElementById('airport-ident');
     const airportCordElement = document.getElementById('airport-cord');
-    console.log(data[flyTurn]['name']);
     airportNameElement.textContent = data[flyTurn]['name'];
     airportCountryElement.textContent = data[flyTurn]['country'];
     airportIdentElement.textContent = data[flyTurn]['ident'];
     airportCordElement.innerHTML = `${data[flyTurn]['longitude_deg'].toFixed(
         2)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data[flyTurn]['latitude_deg'].toFixed(2)}`;
-    console.log(flyTurn);
     if (flyTurn < 9) {
         const airportNextNameElement = document.getElementById('nairport-name');
         const airportNextCountryElement = document.getElementById(
@@ -360,10 +341,8 @@ async function fetchCountries(country) {
             Error('Could not fetch resource');
         }
         const data = await response.json();
-        console.log('Fetched data:', data[0]['cca2']);
         return data[0]['cca2'];
     } catch (error) {
-        console.error('Error fetching data:', error);
         return null;
     }
 }
@@ -402,7 +381,6 @@ async function fetchData() {
             Error('Could not fetch resource');
         }
         const data = await response.json();
-        console.log('Fetched data:', data);
         return data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -417,7 +395,6 @@ async function fetchAirplanes() {
             Error('Could not fetch resource');
         }
         const airplanes = await response.json();
-        console.log('Fetched data:', data);
         return airplanes;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -549,7 +526,6 @@ async function leaderboardData() {
             Error('Could not fetch resource');
         }
         const playerData = await response.json();
-        console.log('Pelaajien score:', playerData);
 
         document.querySelector('.scoreList').innerHTML = '';
 
