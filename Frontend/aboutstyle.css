@@ -1,4 +1,4 @@
-/* variables */
+
 @font-face {
     font-family: Montserrat;
     src: url("../font/Montserrat-VariableFont_wght.ttf") format("truetype");
@@ -19,7 +19,7 @@ body {
 }
 
 
-/* utilities */
+
 .button {
     display: block;
     padding: 0.5rem 1rem;
@@ -88,7 +88,7 @@ h1, h2, p, ul, form {
     font-size: 1.5rem;
     font-weight: bolder;
     background: linear-gradient(90deg, #a0dcdc, #d9ccb0, #d9ccb0, #d0e8d0, #e7c6e7 , #d8e8a3, #d7acd7);
-    background-size: 400%; /* Adjust the size as needed */
+    background-size: 400%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
