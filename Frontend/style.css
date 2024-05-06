@@ -271,9 +271,8 @@ h2 {
     width: 15rem;
     border-radius: 0.2rem;
     text-align: center;
-    justify-items: center;
     padding: 0.8rem;
-    margin: 1rem;
+    margin: 1rem auto;
 }
 
 #airport-name, #nairport-name {
