@@ -14,7 +14,6 @@ const player = {
     name: '',
     money: 1000,
     co2_emissions: 0,
-    location: '',
     turn: 0,
     score: 0,
 };

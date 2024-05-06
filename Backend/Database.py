@@ -83,7 +83,6 @@ def create_table(connection):
         name VARCHAR(255),
         money FLOAT,
         co2_emissions FLOAT,
-        location VARCHAR(255),
         turn INT,
         score INT
     )"""
@@ -105,7 +104,6 @@ def save_player_stats():
     name = data.get('name')
     money = data.get('money')
     co2_emissions = data.get('co2_emissions')
-    location = data.get('location')
     turn = data.get('turn')
     score = data.get('score')
 
@@ -116,10 +114,10 @@ def save_player_stats():
 
             cursor = connection.cursor()
             insert_query = """
-                INSERT INTO player_stats (name, money, co2_emissions, location, turn, score)
-                VALUES (%s, %s, %s, %s, %s, %s)
+                INSERT INTO player_stats (name, money, co2_emissions, turn, score)
+                VALUES (%s, %s, %s, %s, %s)
             """
-            values = (name, money, co2_emissions, location, turn, score)
+            values = (name, money, co2_emissions, turn, score)
             cursor.execute(insert_query, values)
             connection.commit()
             cursor.close()
