@@ -2,7 +2,8 @@
 @font-face {
     font-family: Montserrat;
     src: url("../font/Montserrat-VariableFont_wght.ttf") format("truetype");
-    }
+}
+
 body {
     background-image: url('https://www.airplaneboneyards.com/images/william-larkins/cal-aero-field-california-aerial-view-1946.jpg');
     background-size: cover;
@@ -15,8 +16,6 @@ body {
 :root {
     --black: rgb(92, 96, 103);
     --white: rgb(255, 255, 255);
-    --grey: rgb(128, 128, 128);
-    --dark-grey: rgb(57, 57, 57);
 }
 
 
@@ -28,7 +27,6 @@ body {
     border-radius: 4px;
     text-align: center;
     transition: all 300ms;
-
 }
 
 .button-white {
@@ -39,6 +37,7 @@ body {
 .button:hover {
     transform: scale(1.1);
 }
+
 #pelaa {
     width: 4rem;
 }
