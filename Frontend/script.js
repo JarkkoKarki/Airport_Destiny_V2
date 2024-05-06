@@ -333,9 +333,9 @@ async function airportdata(data, flyTurn) {
     const pelilautaElement = document.getElementById('pelilauta');
     let htmlElement = '';
     for (let i = 0; i < data.length; i++) {
-        const countryData = await fechCountries(data[i]['country']);
+        const countryData = await fetchCountries(data[i]['country']);
         const countryCode = countryData;
-        const flagURL = await fechFlagImg(countryCode);
+        const flagURL = await fetchFlagImg(countryCode);
         htmlElement += `<li id="child${i + 1}">${i +
         1}. ${data[i]['name']}<img class="flags" src="${flagURL}" alt="flag"></li>`;
     }
@@ -351,7 +351,7 @@ async function airportdata(data, flyTurn) {
     }
 }
 
-async function fechCountries(country) {
+async function fetchCountries(country) {
     try {
         const response = await fetch(
             `https://restcountries.com/v3.1/name/${country}`);
@@ -367,7 +367,7 @@ async function fechCountries(country) {
     }
 }
 
-async function fechFlagImg(countryCode) {
+async function fetchFlagImg(countryCode) {
     let flagURL = `https://flagsapi.com/${countryCode}/flat/64.png`;
     return flagURL;
 }
@@ -445,7 +445,7 @@ async function initializeMap() {
     const maxAirports = Math.min(data.length, 10);
     for (let i = 0; i < maxAirports; i++) {
         const airport = data[i];
-        fechCountries(data[i]['country']);
+        fetchCountries(data[i]['country']);
         marker = L.marker([airport.latitude_deg, airport.longitude_deg]).addTo(map);
         marker.bindPopup(`${i + 1}. Airport ${airport.name}`);
         airportMarkers.addLayer(marker);
