@@ -198,7 +198,7 @@ main {
 }
 
 .back {
-    width: 80%; /* Adjust width as needed */
+    width: 100%; /* Adjust width as needed */
     height: 80%; /* Adjust height as needed */
     align-content: center;
     border-radius: 4rem;
@@ -526,11 +526,15 @@ h2 {
 @media screen and (min-width: 769px) {
     .back1 {
         width: 80%;
+        justify-content: center;
+        margin: auto;
     }
 
     #player-modal .back {
-        width: 40%;
+        width: 60%;
         align-content: center;
+        justify-content: center;
+        margin: auto;
     }
 
     #kuva {
