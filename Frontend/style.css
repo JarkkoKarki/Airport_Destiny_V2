@@ -192,7 +192,31 @@ main {
     position: absolute;
     top: 0;
     z-index: 9999;
+    justify-content: center;
+    align-items: center; /* Center the content vertically */
 }
+
+#player-modal h2 {
+    margin: 0 auto;
+}
+
+.back {
+    width: 80%; /* Adjust width as needed */
+    height: 80%; /* Adjust height as needed */
+    align-content: center;
+    border-radius: 4rem;
+    margin: auto;
+    background-image: url("/pic/tausta.jpg");
+    filter: brightness(90%);
+    background-position: center;
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    text-align: center;
+    overflow: auto; /* Enable scrolling if content overflows */
+    padding: 2rem; /* Add padding to give space around content */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
 
 #player-modal1 {
     align-content: center;
@@ -440,20 +464,6 @@ h2 {
     height: auto;
 }
 
-.back {
-    width: 100%;
-    height: 50%;
-    align-content: center;
-    border-radius: 4rem;
-    margin: auto;
-    background-image: url("/pic/tausta.jpg");
-    filter: brightness(90%);
-    background-position: center;
-    background-repeat: no-repeat, repeat;
-    background-size: cover;
-    text-align: center;
-
-}
 
 #player-form {
     display: flex;
