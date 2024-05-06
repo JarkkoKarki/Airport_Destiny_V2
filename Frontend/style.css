@@ -225,6 +225,7 @@ main {
     position: absolute;
     top: 0;
     z-index: 9999;
+    text-align: center;
 }
 
 #player-modal2 {
@@ -265,13 +266,18 @@ main {
 
 .scoreboardh2 {
     font-size: 1.2rem;
-    background-color: rgba(126, 102, 102, 0.49);
-    filter: drop-shadow(1px 1px 5px white) drop-shadow(3px 3px 10px rgba(77, 77, 77, 0.55));
+    background-color: rgba(175, 165, 165, 0.46);
+    filter: drop-shadow(1px 1px 5px white) drop-shadow(3px 3px 10px rgba(110, 110, 110, 0.55));
     width: 15rem;
-    border-radius: 0.2rem;
+    border-radius: 0.5rem;
     text-align: center;
-    padding: 0.8rem;
+    padding: 1.7rem 0.8rem 0.8rem;
     margin: 1rem auto;
+}
+
+#player-modal2 input {
+    font-size: 1.5rem;
+    border-radius: 2rem;
 }
 
 h2 {
