@@ -336,7 +336,7 @@ async function airportdata(data, flyTurn) {
     for (let i = 0; i < data.length; i++) {
         const countryData = await fetchCountries(data[i]['country']);
         const countryCode = countryData;
-        const flagURL = await fechFlagImg(countryCode);
+        const flagURL = await fetchFlagImg(countryCode);
         htmlElement += `<li id="child${i + 1}">${i +
         1}. ${data[i]['name']}<img class="flags" src="${flagURL}" alt="flag"></li>`;
     }
@@ -368,7 +368,7 @@ async function fetchCountries(country) {
     }
 }
 
-async function fechFlagImg(countryCode) {
+async function fetchFlagImg(countryCode) {
     let flagURL = `https://flagsapi.com/${countryCode}/flat/64.png`;
     return flagURL;
 }
