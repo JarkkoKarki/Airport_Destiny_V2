@@ -588,6 +588,12 @@ document.querySelector('#leaderboardInput').addEventListener('click', async func
     document.querySelector('#player-modal2').classList.remove('hide')
 });
 
+document.querySelector('#leaderboardInput1').addEventListener('click', async function (evt) {
+    evt.preventDefault();
+    await leaderboardData();
+    document.querySelector('#player-modal2').classList.remove('hide')
+});
+
 document.querySelector('#leaderBoardClose').addEventListener('click', function (evt) {
     evt.preventDefault();
     document.querySelector('#player-modal2').classList.add('hide');
