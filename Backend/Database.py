@@ -27,13 +27,13 @@ def satunnaiset_maat(connection):
     cursor.execute(sql)
     result = cursor.fetchall()
     result = result
-    #
-    # random.sample varmistaa, että luvut eivät toistu
+
+
     pelilauta = []
 
     random_airports = random.sample(result, 10)
 
-    # Create a list to store airport data as dictionaries
+
     pelilauta = []
     for airport_data in random_airports:
         airport_dict = {
