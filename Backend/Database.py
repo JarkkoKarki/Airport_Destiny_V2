@@ -17,7 +17,7 @@ def yhteys():
     )
     return connection
 
-
+# Tietokannasta otetaan satunnaisesti Euroopasta 10 isoa lentokentää ja muuttaa ne json dataksi
 def satunnaiset_maat(connection):
     cursor = connection.cursor()
     sql = ("""select ident, latitude_deg, longitude_deg, airport.name, country.name from airport, country
@@ -47,7 +47,7 @@ def satunnaiset_maat(connection):
 
     return pelilauta
 
-
+# Ottaa tietokannasta pelaajan nimen ja scoren ja lajittelee ne scoren mukaan isoimmasta pienimpään
 def player_stats(connection):
     cursor = connection.cursor()
     sql = "SELECT name, score From player_stats ORDER BY score DESC"
@@ -76,7 +76,7 @@ def aloitus():
     json_data = json.dumps(random_airports_data, indent=4)
     return json_data
 
-
+# Luo player_stats pöydän jos sitä ei ole vielä olemassa
 def create_table(connection):
     create_table_query = """CREATE TABLE IF NOT EXISTS player_stats (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -90,13 +90,13 @@ def create_table(connection):
     cursor.execute(create_table_query)
     connection.commit()
 
-
+# tuhoaa tiedot player_stats pöydästä
 def delete_data(connection):
     sql = "DELETE from player_stats"
     cursor = connection.cursor()
     cursor.execute(sql)
 
-
+# päivittää pelaaja tiedot tietokantaan
 @app.route('/player_stats', methods=['POST'])
 def save_player_stats():
     connection = yhteys()
@@ -107,10 +107,9 @@ def save_player_stats():
     turn = data.get('turn')
     score = data.get('score')
 
-    # Tarkista, onko 'name' annettu
     if name is not None:
         if connection:
-            create_table(connection)  # Luo taulukko tarvittaessa
+            create_table(connection)
 
             cursor = connection.cursor()
             insert_query = """
@@ -121,9 +120,6 @@ def save_player_stats():
             cursor.execute(insert_query, values)
             connection.commit()
             cursor.close()
-
-            # Älä sulje yhteyttä täällä
-            # connection.close()
 
             return jsonify({'message': 'Player stats saved successfully'}), 200
         else:
