@@ -83,7 +83,7 @@ h1, h2, p, ul, form {
     color: #ffffff;
     padding: 1rem;
 }
-
+/* Liukuva väriävaihtava teksti */
 .text {
     font-size: 1.5rem;
     font-weight: bolder;
@@ -139,7 +139,7 @@ ul {
     list-style-type: none;
     padding: 0;
 }
-
+/* Puhelimen ruudulle säädetty */
 @media screen and (min-width: 769px) {
     .back .container{
         width: 100%;
