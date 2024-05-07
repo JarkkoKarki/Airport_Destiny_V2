@@ -567,7 +567,7 @@ function kps(pelaajanValinta) {
 // Easteregg funktiot
 function easterEggMain(player) {
     // Satunnaista numeroa
-    const randomNumber = Math.floor(Math.random() * 1000) + 1;
+    const randomNumber = Math.floor(Math.random() * 3) + 1;
     if (randomNumber === 1) {
         // Kivi paperi sakset valinta
         const choice = prompt('Enter your choice: rock, paper, or scissors');
